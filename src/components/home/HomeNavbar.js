@@ -1,9 +1,6 @@
 import React from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AuthService from '../auth/auth-service';
-
-import Register from '../auth/Register';
-import Login from '../auth/Login';
 
 export default class HomeNavbar extends React.Component {
 
@@ -17,39 +14,25 @@ export default class HomeNavbar extends React.Component {
     })
   }
 
-  getUser = (userObj) => {
-    this.props.liftUserObj(userObj);
-  }
-
   render() {
     return (
       <div>
-      <div>🌱🚜🌾 agroform</div>
+        <Link to='/'>🌱🚜🌾 agroform</Link>
 
-      {this.props.userInSession && (
-        <div>
-          <Link to='/dashboard'>My dashboard</Link>
-          <button onClick={() => this.logoutUser()}>Logout</button>
-        </div>
-      )}
-      {!this.props.userInSession && (
-        <>
-          <Switch>
-            <Route path='/register' render={ () => {
-              return <Register getUser={this.getUser} />
-            } } />
-
-            <Route path='/login' render={ () => {
-              return <Login getUser={this.getUser} />
-            } } />
-          </Switch>
+        {this.props.userInSession ? (
           <div>
-            <Link to='/register'>Register</Link>
-            <Link to='/login'>Login</Link>
+            <button onClick={() => this.logoutUser()}>Logout</button>
+            <Link to='/dashboard'>My dashboard</Link>
           </div>
-        </>
-      )}
-    </div>
+        )
+        :
+        (
+          <div>
+            <Link to='/login'>Login</Link>
+            <Link to='/register'>Register</Link>
+          </div>
+        )}
+      </div>
     )
   }
 }

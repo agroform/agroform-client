@@ -21,7 +21,7 @@ export default class Register extends Component {
       email,
       password
     } = this.state;
-    console.log(this.state);
+
     this.service.register(
       username,
       email,
@@ -29,7 +29,6 @@ export default class Register extends Component {
       userType
     )
     .then( response => {
-      console.log(response);
         this.setState({
             username: "",
             email: "",
@@ -59,13 +58,13 @@ export default class Register extends Component {
             name="userType" value="Farmer"
             checked={this.state.userType === 'Farmer'}
             onChange={ e => this.handleChange(e)} />
-            <label for="userTypeFarmer">Farmer</label>
+            <label htmlFor="userTypeFarmer">Farmer</label>
 
             <input type="radio" id="userTypeContractor"
             name="userType" value="Contractor"
             checked={this.state.userType === 'Contractor'}
             onChange={ e => this.handleChange(e)} />
-            <label for="userTypeContractor">Contractor</label>
+            <label htmlFor="userTypeContractor">Contractor</label>
           </div>
 
           <label>Username:</label>
