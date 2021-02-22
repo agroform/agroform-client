@@ -5,12 +5,16 @@ const protectedRoute = ({component: Component, user, ...rest}) => {
     return (
       <Route
         {...rest}
-        render={ props  => {
-            if(user){
-              return <Component {...props} loggedInUser={user}/>
-            } else {
-              return <Redirect to={{pathname: '/', state: {from: props.location}}} />
+        render={props => {
+            if (user === undefined) {
+              return (<div>loading</div>);
             }
+
+            if (user) {
+              return <Component {...props} loggedInUser={user}/>
+            }
+
+            return <Redirect to={{pathname: '/', state: {from: props.location}}} />
           }
         }
       />

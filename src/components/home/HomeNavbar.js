@@ -1,17 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AuthService from '../auth/auth-service';
+import { authService } from '../auth/auth-service';
 
 export default class HomeNavbar extends React.Component {
 
-  service = new AuthService()
-
   logoutUser = () => {
-    this.service.logout()
-    .then(() => {
-      this.setState({ loggedInUser: null });
-      this.props.getUser(null);
-    })
+    authService.logout().then(() => {
+      this.props.onLogout();
+    });
   }
 
   render() {

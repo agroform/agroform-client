@@ -1,68 +1,64 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
 
-import AuthService from './components/auth/auth-service';
+import { authService } from './components/auth/auth-service';
 import HomeNavbar from './components/home/HomeNavbar';
-import Dashboard from './components/Dashboard';
 import Home from './components/home/Home';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import ProtectedRoute from './components/auth/protected-route';
+import Dashboard from './components/Dashboard';
 
 export default class App extends Component {
   state = {
-    loggedInUser: null
-  }
-
-  service = new AuthService()
+    loggedInUser: undefined,
+  };
 
   componentDidMount() {
-    this.service.checkIfLoggedIn()
-      .then( response => {
+    authService.checkIfLoggedIn()
+      .then(userObj => {
         this.setState({
-          loggedInUser: {
-            id: response.id,
-            userType: response.__t,
-            username: response.username,
-          }
+          loggedInUser: userObj
         });
       })
-      .catch(()=> console.log(`No user is loggedin`))
+      .catch(()=> {
+        console.log(`No user is loggedin`);
+        this.setState({
+          loggedInUser: null,
+        });
+      })
   }
 
-  getTheUser= (userObj) => {
+  handleLogout = () => {
     this.setState({
-      loggedInUser: userObj
-    })
+      loggedInUser: null,
+    });
+  }
+
+  handleLogin = (user) => {
+    this.setState({
+      loggedInUser: user,
+    });
   }
 
   render() {
-    if (this.state.loggedInUser) {
-      return (
-        <div className="App">
-          <HomeNavbar userInSession={this.state.loggedInUser} getUser={this.getTheUser} />
+    return (
+      <div className="App">
+        <HomeNavbar userInSession={this.state.loggedInUser} onLogout={this.handleLogout} />
           <Switch>
-            <Route exact path="/" component={Home} />
-            <ProtectedRoute user={this.state.loggedInUser} path='/dashboard' component={Dashboard} />
+            <Route exact path='/' component={Home} />
+            <ProtectedRoute user={this.state.loggedInUser} path="/dashboard" component={Dashboard} />
+            { !this.state.loggedInUser && (
+              <>
+                <Route exact path='/register' render={() => <Register onLogin={this.handleLogin} />} />
+                <Route exact path='/login' render={() => <Login onLogin={this.handleLogin} />} />
+              </>
+            )}
           </Switch>
-          <footer>agroform &#169; 2021</footer>
-        </div>
-      );
-    } else {
-      return (
-        <div className="App">
-          <HomeNavbar userInSession={this.state.loggedInUser} getUser={this.getTheUser} />
-          <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path='/register' render={() => <Register getUser={this.getTheUser}/>}/>
-              <Route exact path='/login' render={() => <Login getUser={this.getTheUser}/>}/>
-              <ProtectedRoute user={this.state.loggedInUser} path='/dashboard' component={Dashboard} />
-            </Switch>
-          <footer>agroform &#169; 2021</footer>
-        </div>
-      )
-    }
+        <footer>agroform &#169; 2021</footer>
+      </div>
+    );
   }
 }
 

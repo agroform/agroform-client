@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AuthService from './auth-service';
+import { authService } from './auth-service';
 import { Link } from 'react-router-dom';
 
 export default class Register extends Component {
@@ -11,8 +11,6 @@ export default class Register extends Component {
     isLoggedIn: false,
   }
 
-  service = new AuthService()
-
   handleFormSubmit = (event) => {
     event.preventDefault();
     const {
@@ -22,13 +20,13 @@ export default class Register extends Component {
       password
     } = this.state;
 
-    this.service.register(
+    authService.register(
       username,
       email,
       password,
       userType
     )
-    .then( response => {
+    .then( user => {
         this.setState({
             username: "",
             email: "",
@@ -36,7 +34,7 @@ export default class Register extends Component {
             password: "",
             isLoggedIn: true,
         });
-        this.props.getUser(response)
+        this.props.onLogin(user)
     })
     .catch( error => console.log(error) )
   }

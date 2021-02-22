@@ -26,8 +26,10 @@ class AuthService {
 
   checkIfLoggedIn = () => {
     return this.service.get('/loggedin')
-    .then(response => response.data)
+      .then(response => response.data)
   }
 }
+
+export const authService = new AuthService();
 
 export default AuthService;
