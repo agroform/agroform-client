@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import React, { Component } from 'react';
 
 export default class Dashboard extends Component {
   render() {
