@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import Navbar from './Navbar';
 
 export default class Dashboard extends Component {
   render() {
     return (
       <div>
-        {this.props.loggedInUser.__t}
+        <Navbar user={this.props.loggedInUser} />
       </div>
     )
   }
