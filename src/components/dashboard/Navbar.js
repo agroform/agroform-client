@@ -16,7 +16,6 @@ export default class Navbar extends Component {
     });
 
     if (!["profile", "services"].includes(tab)) {
-      console.log(tab);
       const res = await axios.get(`http://localhost:5000/api/${tab}`, {withCredentials: true});
       this.setState({
         selectedList: res.data
@@ -40,13 +39,14 @@ export default class Navbar extends Component {
       <>
        <div>{this.props.user.username}</div>
        {tabs.map(tab => {
-         return <div>
-          <div key={tab} onClick={() => this.handleTabSelect(tab)}>{tab}</div>
-          {this.state.selectedTab === tab && this.state.selectedList.map((item, i) => {
-            return <div>{tab} {i}</div>
-          })}
-         </div>
-         })}
+         return (
+           <div key={tab}>
+            <div onClick={() => this.handleTabSelect(tab)}>{tab}</div>
+            {this.state.selectedTab === tab && this.state.selectedList.map((item, i) => {
+              return <div key={i}>{tab} {i}</div>
+            })}
+          </div>
+       )})}
       </>
     )
   }
