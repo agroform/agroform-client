@@ -33,7 +33,7 @@ export default class Dashboard extends Component {
     if (this.props.loggedInUser.__t === "Contractor") {
       const [offers, vehicules] = await Promise.all([
         axios.get('http://localhost:5000/api/offers', {withCredentials: true}),
-        axios.get('http://localhost:5000/api//vehicules', {withCredentials: true})
+        axios.get('http://localhost:5000/api/vehicules', {withCredentials: true})
       ]);
 
       this.setState({
