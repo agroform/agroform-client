@@ -7,6 +7,7 @@ import Home from './components/home/Home';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import ProtectedRoute from './components/auth/protected-route';
+import AuthRoute from './components/auth/auth-route';
 import Dashboard from './components/dashboard/Dashboard';
 
 export default class App extends Component {
@@ -47,19 +48,11 @@ export default class App extends Component {
         <Switch>
           <Route exact path='/' render={() => {
             return <Home userInSession={this.state.loggedInUser} onLogout={this.handleLogout} />
-          }} />
+            }}
+          />
           <ProtectedRoute user={this.state.loggedInUser} path="/dashboard" component={Dashboard} />
-          { this.state.loggedInUser ?
-            (
-            <>
-              <Route exact path='/register' render={() => <Redirect to='/dashboard'/>} />
-              <Route exact path='/login' render={() => <Redirect to='/dashboard'/>} />
-            </>) :
-            (<>
-              <Route exact path='/register' render={() => <Register onLogin={this.handleLogin} />} />
-              <Route exact path='/login' render={() => <Login onLogin={this.handleLogin} />} />
-            </>)
-          }
+          <AuthRoute user={this.state.loggedInUser} path="/register" render={() => <Register onLogin={this.handleLogin} />} />
+          <AuthRoute user={this.state.loggedInUser} path="/login" render={() => <Login onLogin={this.handleLogin} />} />
         </Switch>
         <footer>agroform &#169; 2021</footer>
       </div>
