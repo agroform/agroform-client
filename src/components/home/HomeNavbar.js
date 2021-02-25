@@ -19,6 +19,7 @@ export default class HomeNavbar extends React.Component {
           <div>
             <button onClick={() => this.logoutUser()}>Logout</button>
             <Link to='/dashboard'>My dashboard</Link>
+            <Link to='/profile'>Profile</Link>
           </div>
         )
         :
