@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export default class Dashboard extends Component {
+export default class Services extends Component {
   render() {
     return (
       <div>
-        {this.props.loggedInUser.__t}
+        services
       </div>
     )
   }

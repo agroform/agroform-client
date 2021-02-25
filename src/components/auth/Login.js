@@ -15,7 +15,11 @@ class Login extends Component {
 
     authService.login(email, password)
       .then( user => {
-          this.setState({ email: "", password: "" });
+          this.setState({
+            email: "",
+            password: "",
+            isLogged: true,
+          });
           this.props.onLogin(user)
       })
       .catch( error => console.log(error) )

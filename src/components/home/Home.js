@@ -1,11 +1,39 @@
-import React from 'react';
-import HomeNavbar from './HomeNavbar';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { authService } from '../auth/auth-service';
 
-export default function Home(props) {
-  return (
-    <div>
-      <div>Manifesto : What is agroform. Farmers, join us</div>
-      <div>Showcase for contractors. Contractors, join us</div>
-    </div>
-  )
+export default class Home extends Component {
+
+  logoutUser = () => {
+    authService.logout().then(() => {
+      this.props.onLogout();
+    });
+  }
+
+  render() {
+    return (
+      <>
+        <nav>
+          <Link to='/'>🌱🚜🌾 agroform</Link>
+
+          {this.props.userInSession ? (
+            <div>
+              <button onClick={() => this.logoutUser()}>Logout</button>
+              <Link to='/dashboard'>My dashboard</Link>
+            </div>
+          )
+          :
+          (
+            <div>
+              <Link to='/login'>Login</Link>
+              <Link to='/register'>Register</Link>
+            </div>
+          )}
+        </nav>
+
+        <div>Manifesto : What is agroform. Farmers, join us</div>
+        <div>Showcase for contractors. Contractors, join us</div>
+      </>
+    )
+  }
 }
