@@ -7,9 +7,9 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.user._id,
+      id: "",
       type: this.props.user.__t,
-      username: this.props.user.username,
+      username: "",
       email: this.props.user.email,
       password: this.props.user.passwordHash,
       firstName: this.props.user.firstName,
@@ -23,49 +23,34 @@ class Profile extends Component {
   }
 
   handleFormSubmit = (event) => {
+    console.log("Submit running", this.state.username)
     event.preventDefault();
 
-    const username = this.state.username;
-    const email = this.state.email;
-    const oldPassword = this.state.oldPassword;
-    const newPassword = '';
-    const firstName = this.state.firstName;
-    const lastName = this.state.lastName;
-    const country = this.state.country;
-    const city = this.state.city;
-    const street = this.state.street;
-    const userImg = this.state.userImg;
-    const logo = this.state.logo;
+    const { username, email, password, firstName, lastName, country, city, street, userImg, logo,} = this.state;
 
     axios
       .post(
         `http://localhost:5000/api/profile`,
-        { username, email, oldPassword, newPassword, firstName, lastName, country, city, street, userImg, logo,},
-        { withCredentials: true }
+        { username, email, password, firstName, lastName, country, city, street, userImg, logo,},
+        { withCredentials: true },
       )
       
-      .then(
-        () => {
-            
-          this.props.history.push(`/`);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+      .then( (user) => {
+        this.setState({
+            username: username,
+            email: "",
+            userType: 'Farmer',
+            password: "",
+            isLoggedIn: true,})
+      }, error => {
+          console.log(error)
+      })
   };
   
-  handleChangeUsername = (event) => {
-    this.setState({
-      username: event.target.value,
-    });
-  };
-
-  handleChangeEmail = (event) => {
-    this.setState({
-      email: event.target.value,
-    });
-  };
+  handleChange = (event) => {
+    const {name, value} = event.target;
+    this.setState({[name]: value});
+  }
 
   render() {
     return (
@@ -73,14 +58,14 @@ class Profile extends Component {
         {this.state.type === "Contractor" ? (
           <div>
             <strong>Company name</strong>
-            <p>{this.state.username}</p>
+            <p>{this.state.username === "" ? this.props.user.username : this.state.username }</p>
             <label>Change Company Name</label>
             <form onSubmit={this.handleFormSubmit}>
             <input
               type="text"
               name="username"
               value={this.state.username}
-              onChange={(e) => this.handleChangeUsername(e)}
+              onChange={(e) => this.handleChange(e)}
             />
             <input type="submit" value="Save changes" />
             </form>
