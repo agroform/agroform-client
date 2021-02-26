@@ -21,7 +21,7 @@ export default class Dashboard extends Component {
         axios.get('http://localhost:5000/api/fields', {withCredentials: true}),
         axios.get(`http://localhost:5000/api/quotes?farmer=${this.props.loggedInUser._id}`, {withCredentials: true})
       ]);
-      console.log(quotes.data);
+
       this.setState({
         lists: {
           fields: fields.data,
@@ -63,6 +63,7 @@ export default class Dashboard extends Component {
         <Switch>
           <Route exact path='/dashboard'>profile view</Route>
           <Route exact path='/dashboard/fields/:id' component={FieldDetails}/>
+          <Route exact path='/dashboard/fields'>All Fields</Route>
           <Route exact path='/dashboard/quotes/:id' component={QuoteDetails}/>
           <Route exact path='/dashboard/quotes' component={Quotes}/>
           <Route exact path='/dashboard/offers'>All the offers I submitted</Route>
