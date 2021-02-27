@@ -1,0 +1,28 @@
+/* make the customizations */
+$blue: #489B34;
+$primary: #489B34;
+$secondary: #663925;
+$success: #63B22F;
+$info: #0095C9;
+$warning: #FAB418;
+$danger: #E73D1F;
+$theme-color-interval: 5%;
+$spacer: 0.5rem;
+$paragraph-margin-bottom: 0.8rem;
+$line-height-sm: 1.2;
+$line-height-lg: 1.2;
+$border-radius: 0.1rem;
+$border-radius-lg: 0.1rem;
+$border-radius-sm: 0.1rem;
+$font-weight-light: 200;
+$font-weight-normal: 300;
+$font-weight-bold: 500;
+$headings-font-weight: 400;
+$font-family-monospace: Roboto, Arial;
+$dark: #0C0704;
+$input-btn-padding-y: 0rem;
+$input-btn-padding-x: 0.2rem;
+$input-btn-padding-y-lg: 0.2rem;
+
+/* import bootstrap to set changes */
+@import "../node_modules/bootstrap/scss/bootstrap";
