@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import Navbar from './Navbar';
 import axios from 'axios';
 import { Switch, Route } from 'react-router-dom';
-import FieldDetails from '../farmer/FieldDetails';
+import FieldDetails from '../farmer/field/FieldDetails';
 import QuoteDetails from '../farmer/QuoteDetails';
 import OfferDetails from '../contractor/OfferDetails';
 import VehiculeDetails from '../contractor/VehiculeDetails';
 import Services from '../contractor/Services';
 import Quotes from '../contractor/Quotes';
+import Fields from '../farmer/field/Fields';
 
 export default class Dashboard extends Component {
   state = {
@@ -18,10 +19,10 @@ export default class Dashboard extends Component {
   componentDidMount = async () => {
     if (this.props.loggedInUser.__t === "Farmer") {
       const [fields, quotes] = await Promise.all([
-        axios.get('http://localhost:5000/api/fields', {withCredentials: true}),
-        axios.get(`http://localhost:5000/api/quotes?farmer=${this.props.loggedInUser._id}`, {withCredentials: true})
+        axios.get(`${process.env.REACT_APP_API_URL}/fields`, {withCredentials: true}),
+        axios.get(`${process.env.REACT_APP_API_URL}/quotes?farmer=${this.props.loggedInUser._id}`, {withCredentials: true})
       ]);
-      console.log(quotes.data);
+
       this.setState({
         lists: {
           fields: fields.data,
@@ -32,8 +33,8 @@ export default class Dashboard extends Component {
 
     if (this.props.loggedInUser.__t === "Contractor") {
       const [offers, vehicules] = await Promise.all([
-        axios.get('http://localhost:5000/api/offers', {withCredentials: true}),
-        axios.get('http://localhost:5000/api/vehicules', {withCredentials: true})
+        axios.get(`${process.env.REACT_APP_API_URL}/offers`, {withCredentials: true}),
+        axios.get(`${process.env.REACT_APP_API_URL}/vehicules`, {withCredentials: true})
       ]);
 
       this.setState({
@@ -51,6 +52,14 @@ export default class Dashboard extends Component {
     });
   }
 
+  updateFieldList = (newFieldId) => {
+    const updatedLists = {...this.state.lists};
+    updatedLists.fields.push(newFieldId);
+    this.setState({
+      lists: updatedLists
+    });
+  }
+
   render() {
     return (
       <div>
@@ -63,6 +72,7 @@ export default class Dashboard extends Component {
         <Switch>
           <Route exact path='/dashboard'>profile view</Route>
           <Route exact path='/dashboard/fields/:id' component={FieldDetails}/>
+          <Route exact path='/dashboard/fields' render={() => <Fields updateFieldList={this.updateFieldList} />}/>
           <Route exact path='/dashboard/quotes/:id' component={QuoteDetails}/>
           <Route exact path='/dashboard/quotes' component={Quotes}/>
           <Route exact path='/dashboard/offers'>All the offers I submitted</Route>
