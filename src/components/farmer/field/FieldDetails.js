@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export default function FieldDetails() {
-  return (
-    <div>
-      Field details
-    </div>
-  )
+export default class FieldDetails extends Component {
+  render() {
+    return (
+      <div>
+        Details of the selected field
+      </div>
+    )
+  }
 }
+
