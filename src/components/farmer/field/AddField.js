@@ -12,7 +12,7 @@ export default class AddField extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
 
-    axios.post("http://localhost:5000/api/fields", this.state, { withCredentials: true })
+    axios.post(`${process.env.REACT_APP_API_URL}/fields`, this.state, { withCredentials: true })
     .then( (response) => {
       this.props.onAddField(response.data);
     })

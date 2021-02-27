@@ -19,8 +19,8 @@ export default class Dashboard extends Component {
   componentDidMount = async () => {
     if (this.props.loggedInUser.__t === "Farmer") {
       const [fields, quotes] = await Promise.all([
-        axios.get('http://localhost:5000/api/fields', {withCredentials: true}),
-        axios.get(`http://localhost:5000/api/quotes?farmer=${this.props.loggedInUser._id}`, {withCredentials: true})
+        axios.get(`${process.env.REACT_APP_API_URL}/fields`, {withCredentials: true}),
+        axios.get(`${process.env.REACT_APP_API_URL}/quotes?farmer=${this.props.loggedInUser._id}`, {withCredentials: true})
       ]);
 
       this.setState({
@@ -33,8 +33,8 @@ export default class Dashboard extends Component {
 
     if (this.props.loggedInUser.__t === "Contractor") {
       const [offers, vehicules] = await Promise.all([
-        axios.get('http://localhost:5000/api/offers', {withCredentials: true}),
-        axios.get('http://localhost:5000/api/vehicules', {withCredentials: true})
+        axios.get(`${process.env.REACT_APP_API_URL}/offers`, {withCredentials: true}),
+        axios.get(`${process.env.REACT_APP_API_URL}/vehicules`, {withCredentials: true})
       ]);
 
       this.setState({
