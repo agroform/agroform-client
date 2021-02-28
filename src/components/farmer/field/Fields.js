@@ -19,7 +19,7 @@ export default class Fields extends Component {
       })
     }, 2000);
 
-    this.props.updateFieldList(data.newField);
+    this.props.updateList(data.newField, "fields", true);
   }
 
   render() {
