@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { authService } from '../auth/auth-service';
 
 export default class Navbar extends Component {
+  logoutUser = () => {
+    authService.logout().then(() => {
+      this.props.onLogout();
+    });
+  }
 
   render() {
     const userType = this.props.user.__t;
@@ -21,6 +27,7 @@ export default class Navbar extends Component {
       <Link to='/dashboard/profile' onClick={() => this.props.tabSelectHandler('profile')}>
         Profile: {this.props.user.username}
       </Link>
+      <button onClick={this.logoutUser}>Logout</button>
       {tabs.map(tab => {
         return (
           <div key={tab}>

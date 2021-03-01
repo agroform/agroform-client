@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const protectedRoute = ({component: Component, user, ...rest}) => {
+const protectedRoute = ({component: Component, user, onLogout, ...rest}) => {
     return (
       <Route
         {...rest}
@@ -11,7 +11,7 @@ const protectedRoute = ({component: Component, user, ...rest}) => {
             }
 
             if (user) {
-              return <Component {...props} loggedInUser={user}/>
+              return <Component {...props} onLogout={onLogout} loggedInUser={user}/>
             }
 
             return <Redirect to={{pathname: '/', state: {from: props.location}}} />
