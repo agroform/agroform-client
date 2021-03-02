@@ -13,19 +13,19 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: "",
-      type: "",
-      username: "",
-      email: "",
-      password: "",
-      firstName:"",
-      lastName: "",
-      country: "",
-      city: "",
-      street: "",
-      userImg: "",
-      logo: "",
-      display: "none"
+      id: ' ',
+      type: ' ',
+      username: ' ',
+      email: ' ',
+      password: ' ',
+      firstName:' ',
+      lastName: ' ',
+      country: ' ',
+      city: ' ',
+      street: ' ',
+      userImg: ' ',
+      logo: ' ',
+      display: 'none'
     };
   }
 
@@ -34,11 +34,10 @@ class Profile extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://localhost:5000/api/loggedin`, {
+      .get(`${process.env.REACT_APP_API_URL}/loggedin`, {
         withCredentials: true,
       })
       .then((responseFromApi) => {
-        console.log("API resposne", responseFromApi)
         const { username, email, password, firstName, lastName, country, city, street, userImg, logo,} = responseFromApi.data;
         this.setState({  
             username: username,
@@ -66,7 +65,7 @@ class Profile extends Component {
 
     axios
       .post(
-        `http://localhost:5000/api/profile`,
+        `${process.env.REACT_APP_API_URL}/profile`,
         { username, email, password, firstName, lastName, country, city, street, userImg, logo,},
         { withCredentials: true },
       )
@@ -123,7 +122,7 @@ class Profile extends Component {
                     Change Company Name
                   </button>
                   <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                          <input type="text" name="username" value={this.state.email} onChange={(e) => this.handleChange(e)} />
+                          <input type="text" name="username" defaultValue={this.state.email} onChange={(e) => this.handleChange(e)} />
                         </form>
               
                   <br />
@@ -133,7 +132,7 @@ class Profile extends Component {
                   <strong>Farm Name</strong>
                   <p>{this.state.username}</p>
                   <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                    <input type="text" name="username" value={this.state.username} onChange={(e) => this.handleChange(e)} />
+                    <input type="text" name="username" defaultValue={this.state.username} onChange={(e) => this.handleChange(e)} />
                     <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
                   </form>
                   <br />
@@ -144,7 +143,7 @@ class Profile extends Component {
                     <p>{this.state.email}</p>
 
                     <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="text" name="email" value={this.state.email} onChange={(e) => this.handleChange(e)} />
+                      <input type="text" name="email" defaultValue={this.state.email} onChange={(e) => this.handleChange(e)} />
                       <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
                     </form>
                     <br />
@@ -153,7 +152,7 @@ class Profile extends Component {
                     <strong>Password</strong>
                       <p>**********</p>
                     <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="password" name="password" value={this.state.password} onChange={(e) => this.handleChange(e)} />
+                      <input type="password" name="password" defaultValue={this.state.password} onChange={(e) => this.handleChange(e)} />
                       <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
                     </form>
                     <br />
@@ -165,7 +164,7 @@ class Profile extends Component {
                     <strong>First Name</strong>
                     <p>{this.state.firstName}</p>
                     <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="text" name="firstName" value={this.state.firstName} onChange={(e) => this.handleChange(e)} />
+                      <input type="text" name="firstName" defaultValue={this.state.firstName} onChange={(e) => this.handleChange(e)} />
                       <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
                     </form>
                     <br />
@@ -174,7 +173,7 @@ class Profile extends Component {
                     <strong>Street</strong>
                     <p>{this.state.street}</p>
                     <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="text" name="street" value={this.state.street} onChange={(e) => this.handleChange(e)} />
+                      <input type="text" name="street" defaultValue={this.state.street} onChange={(e) => this.handleChange(e)} />
                       <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
                     </form>
                     <br />
@@ -183,7 +182,7 @@ class Profile extends Component {
                     <strong>City</strong>
                     <p>{this.state.city}</p>
                     <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="text" name="city" value={this.state.city} onChange={(e) => this.handleChange(e)} />
+                      <input type="text" name="city" defaultValue={this.state.city} onChange={(e) => this.handleChange(e)} />
                       <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
                     </form>
                     <br />
@@ -194,7 +193,7 @@ class Profile extends Component {
                     <strong>Last Name</strong>
                     <p>{this.state.lastName}</p>
                     <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="text" name="lastName" value={this.state.lastName} onChange={(e) => this.handleChange(e)} />
+                      <input type="text" name="lastName" defaultValue={this.state.lastName} onChange={(e) => this.handleChange(e)} />
                       <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
                     </form>
                     <br />
@@ -203,7 +202,7 @@ class Profile extends Component {
                     <strong>Country</strong>
                     <p>{this.state.country}</p>
                     <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="text" name="country" value={this.state.country} onChange={(e) => this.handleChange(e)} />
+                      <input type="text" name="country" defaultValue={this.state.country} onChange={(e) => this.handleChange(e)} />
                       <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
                     </form>
                     <br />
