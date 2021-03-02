@@ -12,6 +12,12 @@ import Services from '../contractor/Services';
 import Fields from '../farmer/field/Fields';
 import Profile from './Profile'
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
+import Button from 'react-bootstrap/Button';
+
 export default class Dashboard extends Component {
   state = {
     selectedTab: "profile",
@@ -65,6 +71,9 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
+        <Container fluid>
+        <Row>
+        <Col sm={3}>
         <Navbar
           user={this.props.loggedInUser}
           tabSelectHandler={this.handleTabSelect}
@@ -72,26 +81,31 @@ export default class Dashboard extends Component {
           selectedTab={this.state.selectedTab}
           onLogout={this.props.onLogout}
         />
-        <Switch>
-          <Route exact path='/dashboard'>dashboard index view</Route>
-          <Route exact path='/dashboard/profile' component={Profile} />
-          <Route exact path='/dashboard/fields/:id' render={(props) => <FieldDetails {...props} user={this.props.loggedInUser} updateList={this.updateList}/>}/>
-          <Route exact path='/dashboard/fields' render={() => <Fields updateList={this.updateList} />}/>
-          <Route exact path='/dashboard/quotes/:id' component={QuoteDetails}/>
-          <Route exact path='/dashboard/quotes'
-            render={ () => {
-              return this.props.loggedInUser.__t === "Farmer" ?
-               <FarmersQuotes updateList={this.updateList}/> :
-               <AllQuotes />
+        </Col>
+        <Col sm={9}>
+          <Switch>
+            <Route exact path='/dashboard'>dashboard index view</Route>
+            <Route exact path='/dashboard/profile' component={Profile} />
+            <Route exact path='/dashboard/fields/:id' render={(props) => <FieldDetails {...props} user={this.props.loggedInUser} updateList={this.updateList}/>}/>
+            <Route exact path='/dashboard/fields' render={() => <Fields updateList={this.updateList} />}/>
+            <Route exact path='/dashboard/quotes/:id' component={QuoteDetails}/>
+            <Route exact path='/dashboard/quotes'
+              render={ () => {
+                return this.props.loggedInUser.__t === "Farmer" ?
+                <FarmersQuotes updateList={this.updateList}/> :
+                <AllQuotes />
+                }
               }
-            }
-          />
-          <Route exact path='/dashboard/offers'>All the offers I submitted</Route>
-          <Route exact path='/dashboard/offers/:id' component={OfferDetails}/>
-          <Route exact path='/dashboard/vehicules/:id' component={VehiculeDetails}/>
-          <Route exact path='/dashboard/vehicules'>All my vehicules</Route>
-          <Route exact path='/dashboard/services' component={Services}/>
-        </Switch>
+            />
+            <Route exact path='/dashboard/offers'>All the offers I submitted</Route>
+            <Route exact path='/dashboard/offers/:id' component={OfferDetails}/>
+            <Route exact path='/dashboard/vehicules/:id' component={VehiculeDetails}/>
+            <Route exact path='/dashboard/vehicules'>All my vehicules</Route>
+            <Route exact path='/dashboard/services' component={Services}/>
+          </Switch>
+          </Col>
+          </Row>
+        </Container>
       </div>
     )
   }
