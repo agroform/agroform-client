@@ -9,6 +9,7 @@ import VehiculeDetails from '../contractor/VehiculeDetails';
 import Services from '../contractor/Services';
 import Quotes from '../contractor/Quotes';
 import Fields from '../farmer/field/Fields';
+import Profile from './Profile'
 
 export default class Dashboard extends Component {
   state = {
@@ -70,7 +71,7 @@ export default class Dashboard extends Component {
           selectedTab={this.state.selectedTab}
         />
         <Switch>
-          <Route exact path='/dashboard'>profile view</Route>
+          <Route exact path='/dashboard/profile' component={Profile} />
           <Route exact path='/dashboard/fields/:id' component={FieldDetails}/>
           <Route exact path='/dashboard/fields' render={() => <Fields updateFieldList={this.updateFieldList} />}/>
           <Route exact path='/dashboard/quotes/:id' component={QuoteDetails}/>
