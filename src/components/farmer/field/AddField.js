@@ -31,11 +31,11 @@ export default class AddField extends Component {
           <label>Name of the field:</label>
           <input type="text" name="fieldName" value={this.state.fieldName} onChange={this.handleChange} />
           <label>Location:</label>
-          <input type="text" name="location" value={this.state.description} onChange={this.handleChange} />
+          <input type="text" name="location" value={this.state.location} onChange={this.handleChange} />
           <label>Size of the field:</label>
-          <input type="number" name="size" onChange={this.handleChange} />
+          <input type="number" name="size" value={this.state.size} onChange={this.handleChange} />
           <label>Polygon:</label>
-          <input type="text" name="polygon" onChange={this.handleChange} />
+          <input type="text" name="polygon" value={this.state.polygon} onChange={this.handleChange} />
           <input type="submit" value="Submit" />
         </form>
       </div>

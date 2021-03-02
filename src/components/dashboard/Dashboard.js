@@ -53,9 +53,9 @@ export default class Dashboard extends Component {
     });
   }
 
-  updateFieldList = (newFieldId) => {
+  updateList = (id, list, add) => {
     const updatedLists = {...this.state.lists};
-    updatedLists.fields.push(newFieldId);
+    add ? updatedLists[list].push(id) : updatedLists[list].splice(updatedLists[list].indexOf(id), 1);
     this.setState({
       lists: updatedLists
     });
@@ -71,9 +71,10 @@ export default class Dashboard extends Component {
           selectedTab={this.state.selectedTab}
         />
         <Switch>
+          <Route exact path='/dashboard'>dashboard index view</Route>
           <Route exact path='/dashboard/profile' component={Profile} />
-          <Route exact path='/dashboard/fields/:id' component={FieldDetails}/>
-          <Route exact path='/dashboard/fields' render={() => <Fields updateFieldList={this.updateFieldList} />}/>
+          <Route exact path='/dashboard/fields/:id' render={(props) => <FieldDetails {...props} user={this.props.loggedInUser} updateList={this.updateList}/>}/>
+          <Route exact path='/dashboard/fields' render={() => <Fields updateList={this.updateList} />}/>
           <Route exact path='/dashboard/quotes/:id' component={QuoteDetails}/>
           <Route exact path='/dashboard/quotes' component={Quotes}/>
           <Route exact path='/dashboard/offers'>All the offers I submitted</Route>
