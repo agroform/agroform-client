@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import AddField from './AddField';
+import AddQuote from './AddQuote';
 
-export default class Fields extends Component {
+export default class Quotes extends Component {
   state = {
     showAddForm: false,
     responseMessage: null,
   }
 
-  handleAddField = (data) => {
+  handleAddQuote = (data) => {
     this.setState({
       showAddForm: false,
       responseMessage: data.message
@@ -19,17 +19,17 @@ export default class Fields extends Component {
       })
     }, 2000);
 
-    this.props.updateList(data.newField, "fields", true);
+    this.props.updateList(data.newQuote, "quotes", true);
   }
 
   render() {
     return (
       <div>
         <div>Search</div>
-        <div>All fields that meet the search requirements</div>
+        <div>All Quotes that meet the search requirements</div>
         <div>
           {this.state.showAddForm ?
-            <AddField onAddField={this.handleAddField} /> : <button onClick={() => this.setState({showAddForm: true})}>Add a new field</button>}
+            <AddQuote onAddQuote={this.handleAddQuote} /> : <button onClick={() => this.setState({showAddForm: true})}>Add a new quote</button>}
         </div>
         {this.state.responseMessage && <p>{this.state.responseMessage}</p>}
       </div>

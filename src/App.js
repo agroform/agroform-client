@@ -50,7 +50,7 @@ export default class App extends Component {
             return <Home userInSession={this.state.loggedInUser} onLogout={this.handleLogout} />
             }}
           />
-          <ProtectedRoute user={this.state.loggedInUser} path="/dashboard" component={Dashboard} />
+          <ProtectedRoute user={this.state.loggedInUser} path="/dashboard" onLogout={this.handleLogout} component={Dashboard} />
           <AuthRoute user={this.state.loggedInUser} path="/register" render={() => <Register onLogin={this.handleLogin} />} />
           <AuthRoute user={this.state.loggedInUser} path="/login" render={() => <Login onLogin={this.handleLogin} />} />
         </Switch>

@@ -18,7 +18,7 @@ export default class Home extends Component {
 
           {this.props.userInSession ? (
             <div>
-              <button onClick={() => this.logoutUser()}>Logout</button>
+              <button onClick={this.logoutUser}>Logout</button>
               <Link to='/dashboard'>My dashboard</Link>
             </div>
           )

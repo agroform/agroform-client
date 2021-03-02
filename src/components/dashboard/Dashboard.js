@@ -3,11 +3,12 @@ import Navbar from './Navbar';
 import axios from 'axios';
 import { Switch, Route } from 'react-router-dom';
 import FieldDetails from '../farmer/field/FieldDetails';
-import QuoteDetails from '../farmer/QuoteDetails';
+import FarmersQuotes from '../farmer/quote/Quotes';
+import AllQuotes from '../contractor/quote/Quotes';
+import QuoteDetails from '../farmer/quote/QuoteDetails';
 import OfferDetails from '../contractor/OfferDetails';
 import VehiculeDetails from '../contractor/VehiculeDetails';
 import Services from '../contractor/Services';
-import Quotes from '../contractor/Quotes';
 import Fields from '../farmer/field/Fields';
 import Profile from './Profile'
 
@@ -26,7 +27,7 @@ export default class Dashboard extends Component {
 
       this.setState({
         lists: {
-          fields: fields.data,
+          fields: fields.data.map(field => field._id),
           quotes: quotes.data.map(quote => quote._id),
         }
       });
@@ -69,6 +70,7 @@ export default class Dashboard extends Component {
           tabSelectHandler={this.handleTabSelect}
           subTabs={this.state.lists}
           selectedTab={this.state.selectedTab}
+          onLogout={this.props.onLogout}
         />
         <Switch>
           <Route exact path='/dashboard'>dashboard index view</Route>
@@ -76,7 +78,14 @@ export default class Dashboard extends Component {
           <Route exact path='/dashboard/fields/:id' render={(props) => <FieldDetails {...props} user={this.props.loggedInUser} updateList={this.updateList}/>}/>
           <Route exact path='/dashboard/fields' render={() => <Fields updateList={this.updateList} />}/>
           <Route exact path='/dashboard/quotes/:id' component={QuoteDetails}/>
-          <Route exact path='/dashboard/quotes' component={Quotes}/>
+          <Route exact path='/dashboard/quotes'
+            render={ () => {
+              return this.props.loggedInUser.__t === "Farmer" ?
+               <FarmersQuotes updateList={this.updateList}/> :
+               <AllQuotes />
+              }
+            }
+          />
           <Route exact path='/dashboard/offers'>All the offers I submitted</Route>
           <Route exact path='/dashboard/offers/:id' component={OfferDetails}/>
           <Route exact path='/dashboard/vehicules/:id' component={VehiculeDetails}/>
