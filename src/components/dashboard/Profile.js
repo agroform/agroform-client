@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 
 class Profile extends Component {
@@ -16,7 +17,7 @@ class Profile extends Component {
       id: ' ',
       type: ' ',
       username: ' ',
-      email: ' ',
+      email: '',
       password: ' ',
       firstName:' ',
       lastName: ' ',
@@ -25,7 +26,8 @@ class Profile extends Component {
       street: ' ',
       userImg: ' ',
       logo: ' ',
-      display: 'none'
+      display1: 'none',
+      display2: '',
     };
   }
 
@@ -38,6 +40,7 @@ class Profile extends Component {
         withCredentials: true,
       })
       .then((responseFromApi) => {
+        console.log("API resposne", responseFromApi)
         const { username, email, password, firstName, lastName, country, city, street, userImg, logo,} = responseFromApi.data;
         this.setState({  
             username: username,
@@ -96,12 +99,14 @@ class Profile extends Component {
 
   handleDisplay = () => {
     this.setState({
-      display: ""
+      display1: "",
+      display2: "none"
     })
   }
   handleClose = () => {
     this.setState({
-      display: "none"
+      display1: "none",
+      display2: ""
     })
   }
   
@@ -112,99 +117,149 @@ class Profile extends Component {
       <Container fluid>
         <Row>
           <Col>
-            <Button onClick={this.handleDisplay}>Edit</Button>
-            <Button style={{display: `${this.state.display}`}} onClick={this.handleClose} type="submit" variant="secondary"> Close </Button>
+            <Button style={{display: `${this.state.display2}`}} onClick={this.handleDisplay}>Edit</Button>
+            <Button style={{display: `${this.state.display1}`}} onClick={this.handleClose} type="submit" variant="secondary"> Close </Button>
               {this.state.type === "Contractor" ? (
                 <div>
                   <strong>Company Name</strong>
-                  <p>{this.state.username}</p>
-                  <button onClick={this.handleShow} class="link">
-                    Change Company Name
-                  </button>
-                  <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                          <input type="text" name="username" defaultValue={this.state.email} onChange={(e) => this.handleChange(e)} />
-                        </form>
-              
+                  <p style={{display: `${this.state.display2}`}}>{this.state.username}</p>
+                  <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
+                    <Form.Row>
+                    <Col>
+                      <Form.Control type="text" name="username" placeholder={this.state.username} onChange={(e) => this.handleChange(e)} />
+                    </Col>
+                    <Col>
+                      <Button onClick={this.handleClose} type="submit" variant="link" size="lg"> <span>💾</span> </Button>
+                    </Col>
+                    </Form.Row>
+                  </Form>
                   <br />
                   </div>
               ) : (
                 <div>
                   <strong>Farm Name</strong>
-                  <p>{this.state.username}</p>
-                  <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                    <input type="text" name="username" defaultValue={this.state.username} onChange={(e) => this.handleChange(e)} />
-                    <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
-                  </form>
+                  <p style={{display: `${this.state.display2}`}}>{this.state.username}</p>
+                  <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
+                    <Form.Row>
+                    <Col>
+                      <Form.Control type="text" name="username" placeholder={this.state.username} onChange={(e) => this.handleChange(e)} />
+                    </Col>
+                    <Col>
+                      <Button onClick={this.handleClose} type="submit" variant="link" size="lg"> <span>💾</span> </Button>
+                    </Col>
+                    </Form.Row>
+                  </Form>
                   <br />
                 </div>
                 )}
                 <div>     
-                    <strong>Email</strong>
-                    <p>{this.state.email}</p>
-
-                    <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="text" name="email" defaultValue={this.state.email} onChange={(e) => this.handleChange(e)} />
-                      <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
-                    </form>
-                    <br />
+                  <strong>Email</strong>
+                  <p style={{display: `${this.state.display2}`}}>{this.state.email}</p>
+                  <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
+                    <Form.Row>
+                    <Col>
+                      <Form.Control type="text" name="email" placeholder={this.state.email} onChange={(e) => this.handleChange(e)} />
+                    </Col>
+                    <Col>
+                      <Button onClick={this.handleClose} type="submit" variant="link" size="lg"> <span>💾</span> </Button>
+                    </Col>
+                    </Form.Row>
+                  </Form>
+                  <br />
                 </div>
                 <div>
-                    <strong>Password</strong>
-                      <p>**********</p>
-                    <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="password" name="password" defaultValue={this.state.password} onChange={(e) => this.handleChange(e)} />
-                      <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
-                    </form>
+                  <strong>Password</strong>
+                  <p style={{display: `${this.state.display2}`}}>**********</p>
+                  <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
+                    <Form.Row>
+                    <Col>
+                      <Form.Control type="text" name="password" placeholder="*************" onChange={(e) => this.handleChange(e)} />
+                    </Col>
+                    <Col>
+                      <Button onClick={this.handleClose} type="submit" variant="link" size="lg"> <span>💾</span> </Button>
+                    </Col>
+                    </Form.Row>
+                  </Form>
                     <br />
                     <hr />
                 </div>
               <Row>
                 <Col>
                 <div>     
-                    <strong>First Name</strong>
-                    <p>{this.state.firstName}</p>
-                    <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="text" name="firstName" defaultValue={this.state.firstName} onChange={(e) => this.handleChange(e)} />
-                      <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
-                    </form>
+                  <strong>First Name</strong>
+                  <p style={{display: `${this.state.display2}`}}>{this.state.firstName}</p>
+                  <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
+                    <Form.Row>
+                    <Col>
+                      <Form.Control type="text" name="firstName" placeholder={this.state.firstName} onChange={(e) => this.handleChange(e)} />
+                    </Col>
+                    <Col>
+                      <Button onClick={this.handleClose} type="submit" variant="link" size="lg"> <span>💾</span> </Button>
+                    </Col>
+                    </Form.Row>
+                  </Form>
                     <br />
                 </div>
                 <div>     
                     <strong>Street</strong>
-                    <p>{this.state.street}</p>
-                    <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="text" name="street" defaultValue={this.state.street} onChange={(e) => this.handleChange(e)} />
-                      <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
-                    </form>
+                    <p style={{display: `${this.state.display2}`}}>{this.state.street}</p>
+                  <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
+                    <Form.Row>
+                    <Col>
+                      <Form.Control type="text" name="street" placeholder={this.state.street} onChange={(e) => this.handleChange(e)} />
+                    </Col>
+                    <Col>
+                      <Button onClick={this.handleClose} type="submit" variant="link" size="lg"> <span>💾</span> </Button>
+                    </Col>
+                    </Form.Row>
+                  </Form>
                     <br />
                 </div>
                 <div>     
                     <strong>City</strong>
-                    <p>{this.state.city}</p>
-                    <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="text" name="city" defaultValue={this.state.city} onChange={(e) => this.handleChange(e)} />
-                      <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
-                    </form>
+                    <p style={{display: `${this.state.display2}`}}>{this.state.city}</p>
+                  <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
+                    <Form.Row>
+                    <Col>
+                      <Form.Control type="text" name="city" placeholder={this.state.city} onChange={(e) => this.handleChange(e)} />
+                    </Col>
+                    <Col>
+                      <Button onClick={this.handleClose} type="submit" variant="link" size="lg"> <span>💾</span> </Button>
+                    </Col>
+                    </Form.Row>
+                  </Form>
                     <br />
                 </div>
                 </Col>
                 <Col>
                 <div>     
                     <strong>Last Name</strong>
-                    <p>{this.state.lastName}</p>
-                    <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="text" name="lastName" defaultValue={this.state.lastName} onChange={(e) => this.handleChange(e)} />
-                      <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
-                    </form>
+                    <p style={{display: `${this.state.display2}`}}>{this.state.lastName}</p>
+                  <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
+                    <Form.Row>
+                    <Col>
+                      <Form.Control type="text" name="lastName" placeholder={this.state.lastName} onChange={(e) => this.handleChange(e)} />
+                    </Col>
+                    <Col>
+                      <Button onClick={this.handleClose} type="submit" variant="link" size="lg"> <span>💾</span> </Button>
+                    </Col>
+                    </Form.Row>
+                  </Form>
                     <br />
                 </div>
                 <div>     
                     <strong>Country</strong>
-                    <p>{this.state.country}</p>
-                    <form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display}`}}>
-                      <input type="text" name="country" defaultValue={this.state.country} onChange={(e) => this.handleChange(e)} />
-                      <Button onClick={this.handleClose} type="submit" variant="link"> <span>💾</span> </Button>
-                    </form>
+                    <p style={{display: `${this.state.display2}`}}>{this.state.country}</p>
+                  <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
+                    <Form.Row>
+                    <Col>
+                      <Form.Control type="text" name="country" placeholder={this.state.country} onChange={(e) => this.handleChange(e)} />
+                    </Col>
+                    <Col>
+                      <Button onClick={this.handleClose} type="submit" variant="link" size="lg"> <span>💾</span> </Button>
+                    </Col>
+                    </Form.Row>
+                  </Form>
                     <br />
                 </div>
                 </Col>
