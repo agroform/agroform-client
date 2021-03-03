@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class AddField extends Component {
+export default class AddQuote extends Component {
   state = {
-    service: null,
-    field: null,
+    service: undefined,
+    field: undefined,
     date: "",
     transport: false,
     destination: "",
@@ -46,7 +46,6 @@ export default class AddField extends Component {
   }
 
   render() {
-    const services = [];
     return (
       <div>
         <form onSubmit={this.handleFormSubmit}>

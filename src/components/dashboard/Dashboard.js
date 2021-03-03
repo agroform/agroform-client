@@ -86,16 +86,27 @@ export default class Dashboard extends Component {
           <Switch>
             <Route exact path='/dashboard'>dashboard index view</Route>
             <Route exact path='/dashboard/profile' component={Profile} />
-            <Route exact path='/dashboard/fields/:id' render={(props) => <FieldDetails {...props} user={this.props.loggedInUser} updateList={this.updateList}/>}/>
+            <Route exact path='/dashboard/fields/:id'
+              render={(props) => {
+                return <FieldDetails {...props}
+                user={this.props.loggedInUser}
+                updateList={this.updateList}/>
+              }}
+            />
             <Route exact path='/dashboard/fields' render={() => <Fields updateList={this.updateList} />}/>
-            <Route exact path='/dashboard/quotes/:id' component={QuoteDetails}/>
+            <Route exact path='/dashboard/quotes/:id'
+              render={(props) => {
+                return <QuoteDetails {...props}
+                user={this.props.loggedInUser}
+                updateList={this.updateList}/>
+              }}
+            />
             <Route exact path='/dashboard/quotes'
               render={ () => {
                 return this.props.loggedInUser.__t === "Farmer" ?
                 <FarmersQuotes updateList={this.updateList}/> :
                 <AllQuotes />
-                }
-              }
+                }}
             />
             <Route exact path='/dashboard/offers'>All the offers I submitted</Route>
             <Route exact path='/dashboard/offers/:id' component={OfferDetails}/>
@@ -103,8 +114,8 @@ export default class Dashboard extends Component {
             <Route exact path='/dashboard/vehicules'>All my vehicules</Route>
             <Route exact path='/dashboard/services' component={Services}/>
           </Switch>
-          </Col>
-          </Row>
+        </Col>
+        </Row>
         </Container>
       </div>
     )
