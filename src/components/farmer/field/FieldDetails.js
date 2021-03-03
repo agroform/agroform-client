@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import EditField from './EditField';
-import { Redirect } from 'react-router-dom';
 
 export default class FieldDetails extends Component {
   state = {
