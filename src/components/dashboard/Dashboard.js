@@ -6,7 +6,7 @@ import FieldDetails from '../farmer/field/FieldDetails';
 import FarmersQuotes from '../farmer/quote/Quotes';
 import AllQuotes from '../contractor/quote/Quotes';
 import QuoteDetails from '../farmer/quote/QuoteDetails';
-import OfferDetails from '../contractor/OfferDetails';
+import OfferDetails from '../contractor/offer/OfferDetails';
 import VehiculeDetails from '../contractor/VehiculeDetails';
 import Services from '../contractor/Services';
 import Fields from '../farmer/field/Fields';
