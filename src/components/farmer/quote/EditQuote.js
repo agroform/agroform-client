@@ -47,7 +47,7 @@ export default class EditField extends Component {
       .then( () => {
         this.props.onEditQuote({
           quoteDetails,
-          message: 'Your field info has been updated'
+          message: 'Your quote info has been updated'
         });
       })
       .catch(() => {

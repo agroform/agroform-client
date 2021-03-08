@@ -6,6 +6,7 @@ import FieldDetails from '../farmer/field/FieldDetails';
 import FarmersQuotes from '../farmer/quote/Quotes';
 import AllQuotes from '../contractor/quote/Quotes';
 import QuoteDetails from '../farmer/quote/QuoteDetails';
+import Offers from '../contractor/offer/Offers';
 import OfferDetails from '../contractor/offer/OfferDetails';
 import VehiculeDetails from '../contractor/VehiculeDetails';
 import Services from '../contractor/Services';
@@ -108,8 +109,15 @@ export default class Dashboard extends Component {
                 <AllQuotes />
                 }}
             />
-            <Route exact path='/dashboard/offers'>All the offers I submitted</Route>
-            <Route exact path='/dashboard/offers/:id' component={OfferDetails}/>
+            <Route exact path='/dashboard/offers' component={Offers} />
+            <Route exact path='/dashboard/offers/:id'
+              render={(props) => {
+                return <OfferDetails {...props}
+                  user={this.props.loggedInUser}
+                  updateList={this.updateList}
+                />
+              }}
+            />
             <Route exact path='/dashboard/vehicules/:id' component={VehiculeDetails}/>
             <Route exact path='/dashboard/vehicules'>All my vehicules</Route>
             <Route exact path='/dashboard/services' component={Services}/>
