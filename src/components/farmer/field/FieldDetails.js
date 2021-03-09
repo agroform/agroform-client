@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import EditField from './EditField';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
 export default class FieldDetails extends Component {
   state = {
     fieldDetails: {},
@@ -87,31 +92,35 @@ export default class FieldDetails extends Component {
       this.state.showEditForm ? (
           <EditField field={this.state.fieldDetails} onEditField={this.handleFieldEdit} />
         ) : (
-          <div>
-            <label>Name of the field:</label>
-            <p>{fieldName}</p>
-            <label>Location:</label>
-            <p>{location}</p>
-            <label>Size:</label>
-            <p>{size}</p>
-            <label>Map:</label>
-            <p>{polygon}</p>
-            <label>Service History:</label>
-              {serviceHistory.map((record, i) => {
-                return (<div key={`service ${i}`}>
-                  <h5>
-                    {record.service.icon} {record.service.mainService} {record.service.service}
-                  </h5>
-                  <p>{record.date}</p>
-                </div>)
-              })}
-            {this.props.user._id === this.state.fieldDetails.owner && <div>
-              <button onClick={() => this.setState({showEditForm: true})}>
-                Edit
-              </button>
-              <button onClick={this.deleteField}>Delete</button>
-            </div>}
-          </div>
+          <Container fluid>
+            <Row>
+              <Col>
+                <strong>Name of the field:</strong>
+                <p>{fieldName}</p>
+                <strong>Location:</strong>
+                <p>{location}</p>
+                <strong>Size:</strong>
+                <p>{size}</p>
+                <strong>Map:</strong>
+                <p>{polygon}</p>
+                <strong>Service History:</strong>
+                  {serviceHistory.map((record, i) => {
+                    return (<div key={`service ${i}`}>
+                      <h5>
+                        {record.service.icon} {record.service.mainService} {record.service.service}
+                      </h5>
+                      <p>{record.date}</p>
+                    </div>)
+                  })}
+                {this.props.user._id === this.state.fieldDetails.owner && <div>
+                  <Button onClick={() => this.setState({showEditForm: true})}>
+                    Edit
+                  </Button>
+                  <Button onClick={this.deleteField}>Delete</Button>
+                </div>}
+              </Col>
+            </Row>
+          </Container>
         )
 
     )

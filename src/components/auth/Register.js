@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { authService } from './auth-service';
 import { Link } from 'react-router-dom';
 
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+
 export default class Register extends Component {
   state = {
     userType: 'Farmer',
@@ -48,35 +52,33 @@ export default class Register extends Component {
     return (
       <div>
         {this.state.isLoggedIn && <p>YAY! You have been registered as a member of agroform!</p>}
-        <form onSubmit={this.handleFormSubmit}>
-          <div>
-            Are you:
-
+        <Form onSubmit={this.handleFormSubmit}>
+          <strong>Register as</strong>
+          <Form.Row>
             <input type="radio" id="userTypeFarmer"
-            name="userType" value="Farmer"
+            name="userType" value="Farmer" display="🧑‍🌾 Farmer"
             checked={this.state.userType === 'Farmer'}
             onChange={ e => this.handleChange(e)} />
-            <label htmlFor="userTypeFarmer">Farmer</label>
-
+            <label htmlFor="userTypeFarmer">🧑‍🌾 Farmer</label>
             <input type="radio" id="userTypeContractor"
             name="userType" value="Contractor"
             checked={this.state.userType === 'Contractor'}
             onChange={ e => this.handleChange(e)} />
-            <label htmlFor="userTypeContractor">Contractor</label>
-          </div>
+            <label htmlFor="userTypeContractor">🧑‍🔧 Contractor</label>
+          </Form.Row>
 
-          <label>Username:</label>
-          <input type="text" name="username" value={this.state.username} onChange={ e => this.handleChange(e)}/>
+          <strong>Username</strong>
+          <Form.Control type="text" name="username" value={this.state.username} onChange={ e => this.handleChange(e)}/>
 
-          <label>Email:</label>
-          <input type="email" name="email" value={this.state.email} onChange={ e => this.handleChange(e)}/>
+          <strong>Email</strong>
+          <Form.Control type="email" name="email" value={this.state.email} onChange={ e => this.handleChange(e)}/>
 
-          <label>Password:</label>
-          <input type="password" name="password" value={this.state.password} onChange={ e => this.handleChange(e)} />
+          <strong>Password</strong>
+          <Form.Control type="password" name="password" value={this.state.password} onChange={ e => this.handleChange(e)} />
 
-          <input type="submit" value="Register" />
+          <Button type="submit" variant="primary">Register</Button>
 
-        </form>
+        </Form>
 
         <p>Already have account?
           <Link to='/login'> Login</Link>

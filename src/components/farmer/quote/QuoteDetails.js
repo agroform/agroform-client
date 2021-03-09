@@ -3,6 +3,13 @@ import axios from 'axios';
 import EditQuote from './EditQuote';
 import AddOffer from '../../contractor/offer/AddOffer';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 export default class QuoteDetails extends Component {
   state = {
     quoteDetails: {},
@@ -91,77 +98,80 @@ export default class QuoteDetails extends Component {
       this.state.showEditForm ? (
           <EditQuote quote={this.state.quoteDetails} onEditQuote={this.handleEdit} />
         ) : (
-          <div>
-            <label>Field:</label>
-            <p>{field.fieldName}</p>
-            <label>Service required:</label>
-            {/* <p>{service.icon} {service.mainService} {service.service}</p> */}
-            <label>Transport required:</label>
-            <p>{transport ? "Yes" : "No"}</p>
-            <label>Description:</label>
-            <p>{description}</p>
-            <label>Destination:</label>
-            <p>{destination}</p>
-            <label>Date:</label>
-            <p>{date.slice(0, 10)}</p>
-            {this.props.user._id === this.state.quoteDetails.quoteOwner && <div>
-              <button onClick={() => this.setState({showEditForm: true})}>
-                Edit
-              </button>
-              <button onClick={this.deleteQuote}>Delete</button>
-            </div>}
+          <Container>
+            <Row>
+              <Col>
+                <strong>Field</strong>
+                <p>{field.fieldName}</p>
+                {/* <strong>Service required</strong> */}
+                {/* <p>{service.icon} {service.mainService} {service.service}</p> */}
+                <strong>Transport required</strong>
+                <p>{transport ? "Yes" : "No"}</p>
+                <strong>Description</strong>
+                <p>{description}</p>
+                <strong>Destination</strong>
+                <p>{destination}</p>
+                <strong>Date</strong>
+                <p>{date.slice(0, 10)}</p>
+                {this.props.user._id === this.state.quoteDetails.quoteOwner && <div>
+                  <Button onClick={() => this.setState({showEditForm: true})}>
+                    Edit
+                  </Button>
+                  <Button onClick={this.deleteQuote}>Delete</Button>
+                </div>}
 
-            {this.props.user.__t === "Farmer" && <div>
-              {this.state.quoteDetails.offers.map(offer => {
-                return <div key={offer._id}>
-                  <p>{offer.date.slice(0, 10)}</p>
-                  {offer.measureHa && (
-                    <p>Price per hectare: {offer.pricePerHa}</p>
-                  )}
-                  {offer.measureHour && (
-                    <>
-                      <label>Total price calculated by time:</label>
-                      <p>{offer.expecTime * offer.pricePerHour}</p>
-                    </>
-                  )}
-                  <p>{offer.vehicule.vehicule}</p>
-                  <p>Proposed by: {offer.offerOwner.username}</p>
-                  <p>{offer.status}</p>
-                </div>
-              })}
-            </div>}
-            {this.props.user.__t === "Contractor" && !this.state.showAddForm && (
-              <div>
-                {
-                  this.state.quoteDetails.offers?.filter(offer => offer.offerOwner === this.props.user._id)
-                  .map(offer => {
+                {this.props.user.__t === "Farmer" && <div>
+                  {this.state.quoteDetails.offers.map(offer => {
                     return <div key={offer._id}>
-                      <label>Date:</label>
                       <p>{offer.date.slice(0, 10)}</p>
-                      <label>Measure by Hectare:</label>
-                      <p>{offer.measureHa ? "Yes" : "No"}</p>
-                      <label>Price per Hectare:</label>
-                      <p>{offer.pricePerHa}</p>
-                      <label>Measure by Hour:</label>
-                      <p>{offer.measureHour ? "Yes" : "No"}</p>
-                      <label>Time expected (in hour):</label>
-                      <p>{offer.expecTime}</p>
-                      <label>Price per Hour:</label>
-                      <p>{offer.pricePerHour}</p>
-                      <label>Status:</label>
+                      {offer.measureHa && (
+                        <p>Price per hectare: {offer.pricePerHa}</p>
+                      )}
+                      {offer.measureHour && (
+                        <>
+                          <strong>Total price calculated by time:</strong>
+                          <p>{offer.expecTime * offer.pricePerHour}</p>
+                        </>
+                      )}
+                      <p>{offer.vehicule.vehicule}</p>
+                      <p>Proposed by: {offer.offerOwner.username}</p>
                       <p>{offer.status}</p>
                     </div>
-                  })
-                }
-                <button onClick={() => this.setState({showAddForm: true})}>
-                  Send an offer
-                </button>
-              </div>
-            )}
-            {this.props.user.__t === "Contractor" && this.state.showAddForm && (
-              <AddOffer updateList={this.props.updateList} />
-            )}
-          </div>
+                  })}
+                </div>}
+                {this.props.user.__t === "Contractor" && !this.state.showAddForm && (
+                  <div>
+                    {
+                      this.state.quoteDetails.offers?.filter(offer => offer.offerOwner === this.props.user._id)
+                      .map(offer => {
+                        return <div key={offer._id}>
+                          <p>{offer.date.slice(0, 10)}</p>
+                          {offer.measureHa && (
+                            <p>Price per hectare: {offer.pricePerHa}</p>
+                          )}
+                          {offer.measureHour && (
+                            <>
+                              <strong>Total price calculated by time:</strong>
+                              <p>{offer.expecTime * offer.pricePerHour}</p>
+                            </>
+                          )}
+                          <p>{offer.vehicule.vehicule}</p>
+                          <p>Proposed by: {offer.offerOwner.username}</p>
+                          <p>{offer.status}</p>
+                        </div>
+                      })
+                    }
+                    <Button onClick={() => this.setState({showAddForm: true})}>
+                      Send an offer
+                    </Button>
+                  </div>
+                )}
+                {this.props.user.__t === "Contractor" && this.state.showAddForm && (
+                  <AddOffer updateList={this.props.updateList} />
+                )}
+              </Col>
+            </Row>
+          </Container>
         )
 
     )
