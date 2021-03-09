@@ -114,19 +114,18 @@ export default class QuoteDetails extends Component {
             {this.props.user.__t === "Farmer" && <div>
               {this.state.quoteDetails.offers.map(offer => {
                 return <div key={offer._id}>
-                  <label>Date:</label>
                   <p>{offer.date.slice(0, 10)}</p>
-                  <label>Measure by Hectare:</label>
-                  <p>{offer.measureHa ? "Yes" : "No"}</p>
-                  <label>Price per Hectare:</label>
-                  <p>{offer.pricePerHa}</p>
-                  <label>Measure by Hour:</label>
-                  <p>{offer.measureHour ? "Yes" : "No"}</p>
-                  <label>Time expected (in hour):</label>
-                  <p>{offer.expecTime}</p>
-                  <label>Price per Hour:</label>
-                  <p>{offer.pricePerHour}</p>
-                  <label>Status:</label>
+                  {offer.measureHa && (
+                    <p>Price per hectare: {offer.pricePerHa}</p>
+                  )}
+                  {offer.measureHour && (
+                    <>
+                      <label>Total price calculated by time:</label>
+                      <p>{offer.expecTime * offer.pricePerHour}</p>
+                    </>
+                  )}
+                  <p>{offer.vehicule.vehicule}</p>
+                  <p>Proposed by: {offer.offerOwner.username}</p>
                   <p>{offer.status}</p>
                 </div>
               })}
