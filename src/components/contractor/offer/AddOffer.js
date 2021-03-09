@@ -18,7 +18,6 @@ class AddOffer extends Component {
     axios.get(`${process.env.REACT_APP_API_URL}/vehicules`,
       {withCredentials: true})
       .then(response => {
-        console.log(this.props.history);
         this.setState({
           vehicules: response.data
         })
