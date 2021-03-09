@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import EditQuote from './EditQuote';
+import AddOffer from '../../contractor/offer/AddOffer';
 
 export default class QuoteDetails extends Component {
   state = {
@@ -8,6 +9,7 @@ export default class QuoteDetails extends Component {
     isLoaded: false,
     message: null,
     showEditForm: false,
+    showAddForm: false,
   }
 
   fetchQuotedDetails = () => {
@@ -40,7 +42,8 @@ export default class QuoteDetails extends Component {
     if (this.props.match.params.id !== prevProps.match.params.id) {
       this.fetchQuotedDetails();
       this.setState({
-        showEditForm: false
+        showEditForm: false,
+        showAddForm: false,
       })
     }
   }
@@ -107,6 +110,58 @@ export default class QuoteDetails extends Component {
               </button>
               <button onClick={this.deleteQuote}>Delete</button>
             </div>}
+
+            {this.props.user.__t === "Farmer" && <div>
+              {this.state.quoteDetails.offers.map(offer => {
+                return <div key={offer._id}>
+                  <label>Date:</label>
+                  <p>{offer.date.slice(0, 10)}</p>
+                  <label>Measure by Hectare:</label>
+                  <p>{offer.measureHa ? "Yes" : "No"}</p>
+                  <label>Price per Hectare:</label>
+                  <p>{offer.pricePerHa}</p>
+                  <label>Measure by Hour:</label>
+                  <p>{offer.measureHour ? "Yes" : "No"}</p>
+                  <label>Time expected (in hour):</label>
+                  <p>{offer.expecTime}</p>
+                  <label>Price per Hour:</label>
+                  <p>{offer.pricePerHour}</p>
+                  <label>Status:</label>
+                  <p>{offer.status}</p>
+                </div>
+              })}
+            </div>}
+            {this.props.user.__t === "Contractor" && !this.state.showAddForm && (
+              <div>
+                {
+                  this.state.quoteDetails.offers?.filter(offer => offer.offerOwner === this.props.user._id)
+                  .map(offer => {
+                    return <div key={offer._id}>
+                      <label>Date:</label>
+                      <p>{offer.date.slice(0, 10)}</p>
+                      <label>Measure by Hectare:</label>
+                      <p>{offer.measureHa ? "Yes" : "No"}</p>
+                      <label>Price per Hectare:</label>
+                      <p>{offer.pricePerHa}</p>
+                      <label>Measure by Hour:</label>
+                      <p>{offer.measureHour ? "Yes" : "No"}</p>
+                      <label>Time expected (in hour):</label>
+                      <p>{offer.expecTime}</p>
+                      <label>Price per Hour:</label>
+                      <p>{offer.pricePerHour}</p>
+                      <label>Status:</label>
+                      <p>{offer.status}</p>
+                    </div>
+                  })
+                }
+                <button onClick={() => this.setState({showAddForm: true})}>
+                  Send an offer
+                </button>
+              </div>
+            )}
+            {this.props.user.__t === "Contractor" && this.state.showAddForm && (
+              <AddOffer updateList={this.props.updateList} />
+            )}
           </div>
         )
 
