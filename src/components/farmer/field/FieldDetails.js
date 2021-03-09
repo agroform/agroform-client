@@ -37,7 +37,7 @@ export default class FieldDetails extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.id !== prevProps.match.params.id) {
+    if (this.props.match.user.id !== prevProps.match.user.id) {
       this.fetchFieldDetails();
       this.setState({
         showEditForm: false

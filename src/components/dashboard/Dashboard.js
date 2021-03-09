@@ -120,7 +120,12 @@ export default class Dashboard extends Component {
             />
             <Route exact path='/dashboard/vehicules/:id' component={VehiculeDetails}/>
             <Route exact path='/dashboard/vehicules'>All my vehicules</Route>
-            <Route exact path='/dashboard/services' component={Services}/>
+            <Route exact path='/dashboard/services' 
+              render = {(props) => {
+                return <Services {...props} 
+                user={this.props.loggedInUser}/>
+              }}
+                />
           </Switch>
         </Col>
         </Row>

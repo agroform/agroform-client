@@ -126,7 +126,7 @@ class Profile extends Component {
                   <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
                     <Form.Row>
                     <Col>
-                      <Form.Control type="text" name="username" value={this.state.username} onChange={(e) => this.handleChange(e)} />
+                      <Form.Control type="text" name="username" placeholder={this.state.username} onChange={(e) => this.handleChange(e)} />
                     </Col>
                     <Col>
                       <Button onClick={this.handleClose} type="submit" variant="link" size="lg"> <span>💾</span> </Button>
