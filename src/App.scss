@@ -24,5 +24,31 @@ strong{
   color: $info;
 }
 
+.roundBtn{
+  border-radius: 2rem !Important;
+  margin: 3px;
+}
+
+.IconCropProtection {
+  background-image: url(./image/icon_CropProtection.svg);
+  background-repeat: no-repeat;
+}
+.IconFertilistion {
+  background-image: url(./image/icon_Fertilisation.svg);
+  background-repeat: no-repeat;
+}
+.IconHarvest {
+  background-image: url(./image/icon_Harvest.svg);
+  background-repeat: no-repeat;
+}
+.IconSoilTillage {
+  background-image: url(./image/icon_SoilTillage.svg);
+  background-repeat: no-repeat;
+}
+.IconSowing{
+  background-image: url(./image/icon_Sowing.svg);
+  background-repeat: no-repeat;
+}
+
 
 @import "~bootstrap/scss/bootstrap";
