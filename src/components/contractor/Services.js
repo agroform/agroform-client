@@ -72,14 +72,18 @@ export default class Services extends Component {
   deleteService = (event) => {
     event.preventDefault();
     const id = event.target.value;
-    console.log("Deelte", id);
+
     axios
-      .put(`${process.env.REACT_APP_API_URL}/services/${id}`, {
-        withCredentials: true,
+      .put(`${process.env.REACT_APP_API_URL}/services/${id}`, {deletedService: id}, { withCredentials: true })
+      .then(() => {
+        const currentServices = this.state.serviceSelect;
+        this.setState({
+          serviceSelect: currentServices.filter(service => service._id !== id)
+        })
       })
-      .then(() => {})
       .catch((err) => console.log(err));
   };
+
 
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -95,30 +99,53 @@ export default class Services extends Component {
     return (
       <div>
         {this.state.serviceList.map((allService) => {
+          if(allService.mainService === "Harvest") 
           return (
-            <Button
-              size="lg"
-              name="services"
-              value={allService._id}
-              onClick={this.handleServiceSelect}
-            >
+            <Button size="lg" name="services" value={allService._id} onClick={this.handleServiceSelect} className="roundBtn" variant="outline-warning">
               {allService.icon} {allService.service}
             </Button>
-          );
+          ); else if (allService.mainService === "Crop Protection")
+          return (
+            <Button size="lg" name="services" value={allService._id} onClick={this.handleServiceSelect} className="roundBtn" variant="outline-info">
+              {allService.icon} {allService.service}
+            </Button>
+            ); else if (allService.mainService === "Soil tillage")
+          return (
+            <Button size="lg" name="services" value={allService._id} onClick={this.handleServiceSelect} className="roundBtn" variant="outline-secondary">
+              {allService.icon} {allService.service}
+            </Button>
+            ); else if (allService.mainService === "Sowing")
+          return (
+            <Button size="lg" name="services" value={allService._id} onClick={this.handleServiceSelect} className="roundBtn" variant="outline-primary">
+              {allService.icon} {allService.service}
+            </Button>
+          ); else if (allService.mainService === "Fertilisation")
+            return (
+            <Button size="lg" name="services" value={allService._id} onClick={this.handleServiceSelect} className="roundBtn" variant="outline-dark">
+              {allService.icon} {allService.service}
+            </Button>)
         })}
 
         <div>
           <h2>Your service:</h2>
           {this.state.serviceSelect.map((selectService) => {
             return (
+              [selectService.mainService === "Harvest" ? ['warning', 'IconHarvest'] :
+               selectService.mainService === "Crop Protection" ? ['info', 'IconCropProtection']:
+               selectService.mainService === "Soil tillage" ? ['secondary', 'IconSoilTillage']:
+               selectService.mainService === "Sowing" ? ['primary', 'IconSowing'] : ['dark', 'IconFertilistion']].map (value => (
               <>
                 <Container fluid>
-                  <Card border="primary" fluid="true">
+                <Row>
+                <Col xs={2} className={value[1]}>
+           
+                </Col>
+                <Col xs={10}>
+                  <Card border={value[0]} fluid="true">
                     <Card.Header>
                       <Row>
                         <Col xs={1}>{selectService.icon}</Col>
                         <Col xs={9}>{selectService.mainService}</Col>
-                        {/* {console.log(selectService._id)} */}
                         <Col xs={2}>
                           <Button
                             size="lg"
@@ -134,15 +161,16 @@ export default class Services extends Component {
                       </Row>
                     </Card.Header>
                     <Card.Body>
-                      <Card.Title>{selectService._id}</Card.Title>
                       <Card.Title>{selectService.service}</Card.Title>
                       <Card.Text>Description of Service</Card.Text>
                     </Card.Body>
                   </Card>
+                  </Col>
+                  </Row>
                 </Container>
                 <br />
               </>
-            );
+            )))
           })}
         </div>
       </div>
