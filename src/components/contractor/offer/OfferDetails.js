@@ -53,7 +53,8 @@ export default class OfferDetails extends Component {
   }
 
   deleteOffer = () => {
-    axios.delete(`${process.env.REACT_APP_API_URL}/offers/${this.props.match.params.id}`,
+    axios.post(`${process.env.REACT_APP_API_URL}/offers/${this.props.match.params.id}`,
+      {quoteId: this.state.quoteDetails._id},
       {withCredentials: true})
       .then(() => {
         this.props.updateList(this.props.match.params.id, "offers", false);
