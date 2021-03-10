@@ -9,7 +9,6 @@ import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +41,7 @@ class Profile extends Component {
       .then((responseFromApi) => {
         console.log("API resposne", responseFromApi)
         const { username, email, password, firstName, lastName, country, city, street, userImg, logo,} = responseFromApi.data;
-        this.setState({  
+        this.setState({
             username: username,
             email: email,
             password: password,
@@ -72,7 +71,7 @@ class Profile extends Component {
         { username, email, password, firstName, lastName, country, city, street, userImg, logo,},
         { withCredentials: true },
       )
-      
+
       .then( (user) => {
         this.setState({
             username: username,
@@ -91,7 +90,7 @@ class Profile extends Component {
           console.log(error)
       })
   };
-  
+
   handleChange = (event) => {
     const {name, value} = event.target;
     this.setState({[name]: value});
@@ -109,10 +108,10 @@ class Profile extends Component {
       display2: ""
     })
   }
-  
-  
+
+
   render() {
-    
+
     return (
       <Container fluid>
         <Row>
@@ -142,7 +141,7 @@ class Profile extends Component {
                   <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
                     <Form.Row>
                     <Col>
-                      <Form.Control type="text" name="username" placeholder={this.state.username} onChange={(e) => this.handleChange(e)} />
+                      <Form.Control type="text" name="username" value={this.state.username} onChange={(e) => this.handleChange(e)} />
                     </Col>
                     <Col>
                       <Button onClick={this.handleClose} type="submit" variant="link" size="lg"> <span>💾</span> </Button>
@@ -152,7 +151,7 @@ class Profile extends Component {
                   <br />
                 </div>
                 )}
-                <div>     
+                <div>
                   <strong>Email</strong>
                   <p style={{display: `${this.state.display2}`}}>{this.state.email}</p>
                   <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
@@ -185,7 +184,7 @@ class Profile extends Component {
                 </div>
               <Row>
                 <Col>
-                <div>     
+                <div>
                   <strong>First Name</strong>
                   <p style={{display: `${this.state.display2}`}}>{this.state.firstName}</p>
                   <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
@@ -200,7 +199,7 @@ class Profile extends Component {
                   </Form>
                     <br />
                 </div>
-                <div>     
+                <div>
                     <strong>Street</strong>
                     <p style={{display: `${this.state.display2}`}}>{this.state.street}</p>
                   <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
@@ -215,7 +214,7 @@ class Profile extends Component {
                   </Form>
                     <br />
                 </div>
-                <div>     
+                <div>
                     <strong>City</strong>
                     <p style={{display: `${this.state.display2}`}}>{this.state.city}</p>
                   <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
@@ -232,7 +231,7 @@ class Profile extends Component {
                 </div>
                 </Col>
                 <Col>
-                <div>     
+                <div>
                     <strong>Last Name</strong>
                     <p style={{display: `${this.state.display2}`}}>{this.state.lastName}</p>
                   <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
@@ -247,7 +246,7 @@ class Profile extends Component {
                   </Form>
                     <br />
                 </div>
-                <div>     
+                <div>
                     <strong>Country</strong>
                     <p style={{display: `${this.state.display2}`}}>{this.state.country}</p>
                   <Form onSubmit={this.handleFormSubmit} style={{display: `${this.state.display1}`}}>
@@ -269,7 +268,7 @@ class Profile extends Component {
             <Image width="150px" src={this.state.userImg} roundedCircle />
             <Link to={"/"}>Back to dashboard</Link>
           </Col>
-          
+
         </Row>
       </Container>
     );

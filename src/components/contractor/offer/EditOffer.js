@@ -20,7 +20,7 @@ export default class EditOffer extends Component {
       {withCredentials: true})
       .then(response => {
         this.setState({
-          vehicules: response.data
+          vehicules: response.data.vehicules
         })
       })
       .catch(err => console.log(err))

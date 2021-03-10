@@ -54,18 +54,14 @@ export default class Register extends Component {
         {this.state.isLoggedIn && <p>YAY! You have been registered as a member of agroform!</p>}
         <Form onSubmit={this.handleFormSubmit}>
           <strong>Register as</strong>
-          <Form.Row>
-            <input type="radio" id="userTypeFarmer"
-            name="userType" value="Farmer" display="🧑‍🌾 Farmer"
-            checked={this.state.userType === 'Farmer'}
-            onChange={ e => this.handleChange(e)} />
-            <label htmlFor="userTypeFarmer">🧑‍🌾 Farmer</label>
-            <input type="radio" id="userTypeContractor"
-            name="userType" value="Contractor"
-            checked={this.state.userType === 'Contractor'}
-            onChange={ e => this.handleChange(e)} />
-            <label htmlFor="userTypeContractor">🧑‍🔧 Contractor</label>
-          </Form.Row>
+          <Form.Check type="radio" id="userTypeFarmer"
+          name="userType" value="Farmer" label="🧑‍🌾 Farmer"
+          checked={this.state.userType === 'Farmer'}
+          onChange={ e => this.handleChange(e)} />
+          <Form.Check type="radio" id="userTypeContractor"
+          name="userType" value="Contractor" label="🧑‍🔧 Contractor"
+          checked={this.state.userType === 'Contractor'}
+          onChange={ e => this.handleChange(e)} />
 
           <strong>Username</strong>
           <Form.Control type="text" name="username" value={this.state.username} onChange={ e => this.handleChange(e)}/>
