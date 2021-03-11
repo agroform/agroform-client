@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import { Card, CardDeck } from 'react-bootstrap';
+
 export default class Quotes extends Component {
   state = {
     quotes: [],
@@ -21,23 +25,33 @@ export default class Quotes extends Component {
 
   render() {
     return (
-      <div>
-        <div>Search</div>
+      <Container>
+        <Row>Search</Row>
         {this.state.isLoaded ?
-          <div>
-            {this.state.quotes.map(quote => {
-              return <Link key={quote._id} to={`/dashboard/quotes/${quote._id}`}>
-                <h5>{quote.field.fieldName}</h5>
-                <p>{quote.service?.icon} {quote.service?.service}</p>
-                <p>{quote.date}</p>
-                <p>{quote.quoteOwner.username}</p>
-              </Link>
-            })}
-          </div>
-          :
-          <div>Loading...</div>
+        <Row>
+        <CardDeck>
+          {this.state.quotes.map(quote => {
+            return (
+              <Card key={quote._id} border="primary" style={{ width: '18rem', borderRadius: '4px' }}>
+                <Card.Body>
+                  <Card.Title>{quote.field.fieldName}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">Requested by: {quote.quoteOwner.username}</Card.Subtitle>
+                  <Card.Text>
+                    {quote.service?.icon} {quote.service?.service}
+                    <br></br>
+                    {quote.date.slice(0, 10)}
+                  </Card.Text>
+                  <Link to={`/dashboard/quotes/${quote._id}`}>More details</Link>
+                </Card.Body>
+              </Card>
+            )
+          })}
+        </CardDeck>
+        </Row>
+        :
+        <Row>Loading...</Row>
         }
-      </div>
+      </Container>
     )
   }
 }

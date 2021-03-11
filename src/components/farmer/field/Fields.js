@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import AddField from './AddField';
 
+import Button from 'react-bootstrap/Button';
+
 export default class Fields extends Component {
   state = {
     showAddForm: false,
@@ -29,7 +31,7 @@ export default class Fields extends Component {
         <div>All fields that meet the search requirements</div>
         <div>
           {this.state.showAddForm ?
-            <AddField onAddField={this.handleAddField} /> : <button onClick={() => this.setState({showAddForm: true})}>Add a new field</button>}
+            <AddField onAddField={this.handleAddField} /> : <Button onClick={() => this.setState({showAddForm: true})}>Add a new field</Button>}
         </div>
         {this.state.responseMessage && <p>{this.state.responseMessage}</p>}
       </div>

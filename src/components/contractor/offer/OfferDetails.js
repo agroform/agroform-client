@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import EditOffer from './EditOffer';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
 export default class OfferDetails extends Component {
   state = {
     offerDetails: {},
@@ -78,13 +83,12 @@ export default class OfferDetails extends Component {
       measureHour,
       expecTime,
       pricePerHour,
-      timer,
       status
     } = this.state.offerDetails;
 
     const {
       field,
-      //service,
+      service,
       transport,
       description,
       destination,
@@ -92,51 +96,57 @@ export default class OfferDetails extends Component {
     } = this.state.quoteDetails;
 
     return (
-      <div>
-        {this.state.showEditForm ? (
-          <EditOffer offer={this.state.offerDetails} onEditOffer={this.handleEdit} />
-          ) : (
-            <div>
-              <label>Date:</label>
+      <Container>
+        <Row>
+          <Col>
+          {this.state.showEditForm ? (
+            <EditOffer offer={this.state.offerDetails} onEditOffer={this.handleEdit} />
+            ) : (
+            <>
+              <strong>Date</strong>
               <p>{offerDate.slice(0, 10)}</p>
-              <label>Vehicule:</label>
+              <strong>Vehicule</strong>
               <p>{vehicule.vehicule}</p>
-              <label>Measure by Hectare:</label>
+              <strong>Service</strong>
+              <p>{service?.icon} {service?.mainService} {service?.service}</p>
+              <strong>Measure by Hectare</strong>
               <p>{measureHa ? "Yes" : "No"}</p>
-              <label>Price per Hectare:</label>
+              <strong>Price per Hectare</strong>
               <p>{pricePerHa}</p>
-              <label>Measure by Hour:</label>
+              <strong>Measure by Hour</strong>
               <p>{measureHour ? "Yes" : "No"}</p>
-              <label>Time expected (in hour):</label>
+              <strong>Time expected (in hour)</strong>
               <p>{expecTime}</p>
-              <label>Price per Hour:</label>
+              <strong>Price per Hour</strong>
               <p>{pricePerHour}</p>
-              <label>Status:</label>
+              <strong>Status</strong>
               <p>{status}</p>
 
               {this.props.user._id === this.state.offerDetails.offerOwner && <div>
-              <button onClick={() => this.setState({showEditForm: true})}>
+              <Button onClick={() => this.setState({showEditForm: true})}>
                 Edit
-              </button>
-              <button onClick={this.deleteOffer}>Delete</button>
+              </Button>
+              <Button onClick={this.deleteOffer}>Delete</Button>
               </div>}
-            </div>
-          )}
-        <div>
-          <label>Field:</label>
-          <p>{field.fieldName}</p>
-          <label>Service required:</label>
-          {/* <p>{service.icon} {service.mainService} {service.service}</p> */}
-          <label>Transport required:</label>
-          <p>{transport ? "Yes" : "No"}</p>
-          <label>Description:</label>
-          <p>{description}</p>
-          <label>Destination:</label>
-          <p>{destination}</p>
-          <label>Date:</label>
-          <p>{quoteDate.slice(0, 10)}</p>
-        </div>
-      </div>
+            </>
+            )}
+          </Col>
+          <Col>
+            <strong>Field</strong>
+            <p>{field.fieldName}</p>
+            <strong>Service required</strong>
+            <p>{service?.icon} {service?.mainService} {service?.service}</p>
+            <strong>Transport required</strong>
+            <p>{transport ? "Yes" : "No"}</p>
+            <strong>Description</strong>
+            <p>{description}</p>
+            <strong>Destination</strong>
+            <p>{destination}</p>
+            <strong>Date</strong>
+            <p>{quoteDate.slice(0, 10)}</p>
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }

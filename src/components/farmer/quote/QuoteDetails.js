@@ -3,6 +3,11 @@ import axios from 'axios';
 import EditQuote from './EditQuote';
 import AddOffer from '../../contractor/offer/AddOffer';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
 export default class QuoteDetails extends Component {
   state = {
     quoteDetails: {},
@@ -78,9 +83,14 @@ export default class QuoteDetails extends Component {
       )
     }
 
+    if (this.state.showEditForm) {
+      return <EditQuote quote={this.state.quoteDetails}
+        onEditQuote={this.handleEdit} />
+    }
+
     const {
       field,
-      //service,
+      service,
       transport,
       description,
       destination,
@@ -88,31 +98,55 @@ export default class QuoteDetails extends Component {
     } = this.state.quoteDetails;
 
     return (
-      this.state.showEditForm ? (
-          <EditQuote quote={this.state.quoteDetails} onEditQuote={this.handleEdit} />
-        ) : (
-          <div>
-            <label>Field:</label>
+      <Container>
+        <Row>
+          <Col>
+            <strong>Field</strong>
             <p>{field.fieldName}</p>
-            <label>Service required:</label>
-            {/* <p>{service.icon} {service.mainService} {service.service}</p> */}
-            <label>Transport required:</label>
+            <strong>Service required</strong>
+            <p>{service?.icon} {service?.mainService} {service?.service}</p>
+            <strong>Transport required</strong>
             <p>{transport ? "Yes" : "No"}</p>
-            <label>Description:</label>
+            <strong>Description</strong>
             <p>{description}</p>
-            <label>Destination:</label>
+            <strong>Destination</strong>
             <p>{destination}</p>
-            <label>Date:</label>
+            <strong>Date</strong>
             <p>{date.slice(0, 10)}</p>
             {this.props.user._id === this.state.quoteDetails.quoteOwner && <div>
-              <button onClick={() => this.setState({showEditForm: true})}>
+              <Button onClick={() => this.setState({showEditForm: true})}>
                 Edit
-              </button>
-              <button onClick={this.deleteQuote}>Delete</button>
+              </Button>
+              <Button onClick={this.deleteQuote}>Delete</Button>
             </div>}
+          </Col>
 
-            {this.props.user.__t === "Farmer" && <div>
-              {this.state.quoteDetails.offers.map(offer => {
+          {this.props.user.__t === "Farmer" &&
+          <Col>
+            {this.state.quoteDetails.offers.map(offer => {
+              return <div key={offer._id}>
+                <p>{offer.date.slice(0, 10)}</p>
+                {offer.measureHa && (
+                  <p>Price per hectare: {offer.pricePerHa}</p>
+                )}
+                {offer.measureHour && (
+                  <>
+                    <strong>Total price calculated by time:</strong>
+                    <p>{offer.expecTime * offer.pricePerHour}</p>
+                  </>
+                )}
+                <p>{offer.vehicule.vehicule}</p>
+                <p>Proposed by: {offer.offerOwner.username}</p>
+                <p>{offer.status}</p>
+              </div>
+            })}
+          </Col>}
+
+          {this.props.user.__t === "Contractor" && !this.state.showAddForm && (
+          <Col>
+            {
+              this.state.quoteDetails.offers.filter(offer => (offer.offerOwner._id === this.props.user._id))
+              .map(offer => {
                 return <div key={offer._id}>
                   <p>{offer.date.slice(0, 10)}</p>
                   {offer.measureHa && (
@@ -120,7 +154,7 @@ export default class QuoteDetails extends Component {
                   )}
                   {offer.measureHour && (
                     <>
-                      <label>Total price calculated by time:</label>
+                      <strong>Total price calculated by time:</strong>
                       <p>{offer.expecTime * offer.pricePerHour}</p>
                     </>
                   )}
@@ -128,42 +162,21 @@ export default class QuoteDetails extends Component {
                   <p>Proposed by: {offer.offerOwner.username}</p>
                   <p>{offer.status}</p>
                 </div>
-              })}
-            </div>}
-            {this.props.user.__t === "Contractor" && !this.state.showAddForm && (
-              <div>
-                {
-                  this.state.quoteDetails.offers?.filter(offer => offer.offerOwner === this.props.user._id)
-                  .map(offer => {
-                    return <div key={offer._id}>
-                      <label>Date:</label>
-                      <p>{offer.date.slice(0, 10)}</p>
-                      <label>Measure by Hectare:</label>
-                      <p>{offer.measureHa ? "Yes" : "No"}</p>
-                      <label>Price per Hectare:</label>
-                      <p>{offer.pricePerHa}</p>
-                      <label>Measure by Hour:</label>
-                      <p>{offer.measureHour ? "Yes" : "No"}</p>
-                      <label>Time expected (in hour):</label>
-                      <p>{offer.expecTime}</p>
-                      <label>Price per Hour:</label>
-                      <p>{offer.pricePerHour}</p>
-                      <label>Status:</label>
-                      <p>{offer.status}</p>
-                    </div>
-                  })
-                }
-                <button onClick={() => this.setState({showAddForm: true})}>
-                  Send an offer
-                </button>
-              </div>
-            )}
-            {this.props.user.__t === "Contractor" && this.state.showAddForm && (
-              <AddOffer updateList={this.props.updateList} />
-            )}
-          </div>
-        )
+              })
+            }
+              <Button onClick={() => this.setState({showAddForm: true})}>
+                Propose an offer
+              </Button>
+          </Col>
+          )}
 
+          {this.props.user.__t === "Contractor" && this.state.showAddForm && (
+          <Col>
+            <AddOffer updateList={this.props.updateList}/>
+          </Col>
+          )}
+        </Row>
+      </Container>
     )
   }
 }

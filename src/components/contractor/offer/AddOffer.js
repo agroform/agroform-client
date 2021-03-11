@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 class AddOffer extends Component {
   state = {
     date: "",
@@ -19,7 +22,8 @@ class AddOffer extends Component {
       {withCredentials: true})
       .then(response => {
         this.setState({
-          vehicules: response.data
+          vehicules: response.data.vehicules,
+          isLoaded: true,
         })
       })
       .catch(err => console.log(err))
@@ -53,50 +57,48 @@ class AddOffer extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleFormSubmit}>
-        <label>Date:</label>
-        <input type="date" name="date" value={this.state.date} onChange={this.handleChange} />
 
-        <label>Vehicule:</label>
-        <select name="vehicule" value={this.state.vehicule} onChange={this.handleChange}>
+      <Form onSubmit={this.handleFormSubmit}>
+        <strong>Date</strong>
+        <Form.Control type="date" name="date" value={this.state.date} onChange={this.handleChange} />
+
+        <strong>Vehicule</strong>
+        <Form.Control as="select" name="vehicule" value={this.state.vehicule} onChange={this.handleChange}>
           {this.state.vehicules.map(vehicule => <option key={vehicule._id} value={vehicule._id}>{vehicule.vehicule}</option>)}
-        </select>
+        </Form.Control>
 
-        <label>Measure by Hectare:</label>
-        <input type="radio" id="measureHaTrue"
-          name="measureHa" value={true}
+        <strong>Measure by Hectare</strong>
+        <Form.Check type="radio" type="radio" id="measureHaTrue"
+          name="measureHa" value={true} label="Yes"
           checked={this.state.measureHa}
           onChange={this.handleChange} />
-        <label htmlFor="measureHaTrue">Yes</label>
-        <input type="radio" id="measureHaFalse"
-          name="measureHa" value={false}
+        <Form.Check type="radio" type="radio" id="measureHaFalse"
+          name="measureHa" value={false} label="No"
           checked={!this.state.measureHa}
           onChange={this.handleChange} />
-        <label htmlFor="measureHaFalse">No</label>
 
-        <label>Price per Hectare:</label>
-        <input type="number" name="pricePerHa" value={this.state.pricePerHa} onChange={this.handleChange}/>
 
-        <label>Measure by Hour:</label>
-        <input type="radio" id="measureHourTrue"
-          name="measureHour" value={true}
+        <strong>Price per Hectare</strong>
+        <Form.Control type="number" name="pricePerHa" value={this.state.pricePerHa} onChange={this.handleChange}/>
+
+        <strong>Measure by Hour</strong>
+        <Form.Check type="radio" id="measureHourTrue"
+          name="measureHour" value={true} label="Yes"
           checked={this.state.measureHour}
           onChange={this.handleChange} />
-        <label htmlFor="measureHourTrue">Yes</label>
-        <input type="radio" id="measureHourFalse"
-          name="measureHour" value={false}
+        <Form.Check type="radio" id="measureHourFalse"
+          name="measureHour" value={false} label="No"
           checked={!this.state.measureHour}
           onChange={this.handleChange} />
-        <label htmlFor="measureHourFalse">No</label>
 
-        <label>Time expected (in hour):</label>
-        <input type="number" name="expecTime" value={this.state.expecTime} onChange={this.handleChange}/>
+        <strong>Time expected (in hour)</strong>
+        <Form.Control type="number" name="expecTime" value={this.state.expecTime} onChange={this.handleChange}/>
 
-        <label>Price per Hour:</label>
-        <input type="number" name="pricePerHour" value={this.state.pricePerHour} onChange={this.handleChange}/>
+        <strong>Price per Hour</strong>
+        <Form.Control type="number" name="pricePerHour" value={this.state.pricePerHour} onChange={this.handleChange}/>
 
-        <input type="submit" value="Submit" />
-      </form>
+        <Button>Submit</Button>
+      </Form>
     )
   }
 }
