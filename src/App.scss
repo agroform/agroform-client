@@ -30,25 +30,96 @@ strong{
 }
 
 .IconCropProtection {
-  background-image: url(./image/icon_CropProtection.svg);
+  background-image: url(./image/icon/icon_CropProtection.svg);
   background-repeat: no-repeat;
 }
 .IconFertilistion {
-  background-image: url(./image/icon_Fertilisation.svg);
+  background-image: url(./image/icon/icon_Fertilisation.svg);
   background-repeat: no-repeat;
 }
 .IconHarvest {
-  background-image: url(./image/icon_Harvest.svg);
+  background-image: url(./image/icon/icon_Harvest.svg);
   background-repeat: no-repeat;
 }
 .IconSoilTillage {
-  background-image: url(./image/icon_SoilTillage.svg);
+  background-image: url(./image/icon/icon_SoilTillage.svg);
   background-repeat: no-repeat;
 }
 .IconSowing{
-  background-image: url(./image/icon_Sowing.svg);
+  background-image: url(./image/icon/icon_Sowing.svg);
   background-repeat: no-repeat;
 }
+.logoAgroform{
+  background-image: url(./image/logo/logo_agroform.svg) !Important;
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px;
+}
+.pictureMain{
+  background-image: url(./image/img/image_corn.jpg);
+  background-repeat: no-repeat;
+  background-size: auto 100vh;
+}
+.containerCarousel{
+  margin: 25vh auto;
+  width: 20vh;
+  height: 50vh;
+}
+.containerCarousel h3{
+  font-size: 1.5rem;
+  font-weight: $font-weight-bold;
+}
+
+.backgroundCarousel{
+  background-color: #fff;
+}
+
+.firstItemImg{
+  background-image: url(./image/logo/logo_agroform.svg) !Important;
+  background-repeat: no-repeat;
+  margin: auto;
+  width: 300px;
+  height: 300px;
+}
+
+.secondItemImg{
+  background-image: url(./image/logo/logo_compare.svg) !Important;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  width: 300px;
+  height: 300px;
+}
+.threeItemImg{
+  background-image: url(./image/logo/logo_fields.svg) !Important;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  width: 400px;
+  height: 300px;
+}
+
+.overlay{
+  position: relative;
+  margin-bottom: 10%;
+}
+
+.borderFill {
+  border: 1px solid white;
+  background-color: white;
+  transform: skewX(-20deg);
+  height: 200px;
+  width: 100%;
+  border-radius: 3px;
+  overflow: hidden;
+  z-index: 1;
+  position: absolute;
+}
+
+.text {
+  z-index: 2;
+  position: absolute;
+}
+
+
 
 
 @import "~bootstrap/scss/bootstrap";
