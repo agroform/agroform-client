@@ -102,7 +102,7 @@ export default class Dashboard extends Component {
             <Route exact path='/dashboard/quotes'
               render={ () => {
                 return this.props.loggedInUser.__t === "Farmer" ?
-                <FarmersQuotes updateList={this.updateList}/> :
+                <FarmersQuotes updateList={this.updateList} user={this.props.loggedInUser}/> :
                 <AllQuotes />
                 }}
             />
@@ -115,15 +115,15 @@ export default class Dashboard extends Component {
                 />
               }}
             />
-            <Route exact path='/dashboard/vehicules' 
+            <Route exact path='/dashboard/vehicules'
               render = {(props) => {
-                return <Vehicules {...props} 
+                return <Vehicules {...props}
                 user={this.props.loggedInUser}/>
               }}
                 />
-            <Route exact path='/dashboard/services' 
+            <Route exact path='/dashboard/services'
               render = {(props) => {
-                return <Services {...props} 
+                return <Services {...props}
                 user={this.props.loggedInUser}/>
               }}
                 />
