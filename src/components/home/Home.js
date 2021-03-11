@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { authService } from "../auth/auth-service";
+import axios from "axios";
 
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
@@ -8,14 +8,44 @@ import Carousel from "react-bootstrap/Carousel";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Nav } from "react-bootstrap";
+import Nav from "react-bootstrap/Nav";
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
+import CardColumns from "react-bootstrap/CardColumns";
 
 export default class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      listContractors: [],
+    };
+  }
+
+  fetchcontractorList = () => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/contractorlist`, {
+        withCredentials: true,
+      })
+      .then((responseFromApi) => {
+        this.setState({
+          listContractors: [...responseFromApi.data],
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   logoutUser = () => {
     authService.logout().then(() => {
       this.props.onLogout();
     });
   };
+
+  componentDidMount() {
+    this.fetchcontractorList();
+  }
 
   render() {
     return (
@@ -55,26 +85,25 @@ export default class Home extends Component {
         </Navbar>
         <Container fluid className="pictureMain">
           <Carousel>
-
             <Carousel.Item interval={10000} className="containerCarousel">
               <Carousel.Caption>
                 <Row>
-                <Col md={{ span: 3, offset: 4 }}>
-                  <div className="firstItemImg" alt="compareContractor"></div>
-                  <br />
-                </Col>
+                  <Col md={{ span: 3, offset: 4 }}>
+                    <div className="firstItemImg" alt="compareContractor"></div>
+                    <br />
+                  </Col>
                 </Row>
                 <Row className="overlay">
                   <div className="borderFill"></div>
-                  
-                    <Col className="text" md={{ span: 6, offset: 3 }}>
-                      <h2 style={{ color: "#0C0704", paddingTop: "10%" }}>
+
+                  <Col className="text" md={{ span: 6, offset: 3 }}>
+                    <h2 style={{ color: "#0C0704", paddingTop: "10%" }}>
                       WELCOME TO AGROFORM
-                      </h2>
-                      <p style={{ color: "#0C0704" }}>
+                    </h2>
+                    <p style={{ color: "#0C0704" }}>
                       The innovative platform for Farmers and contractors
-                      </p>
-                    </Col>
+                    </p>
+                  </Col>
                 </Row>
               </Carousel.Caption>
             </Carousel.Item>
@@ -82,19 +111,20 @@ export default class Home extends Component {
             <Carousel.Item interval={10000} className="containerCarousel">
               <Carousel.Caption>
                 <Row>
-                <Col md={{ span: 8, offset: 2 }}>
-                  <div className="threeItemImg" alt="fields"></div>
-                </Col>
+                  <Col md={{ span: 8, offset: 2 }}>
+                    <div className="threeItemImg" alt="fields"></div>
+                  </Col>
                 </Row>
                 <Row className="overlay">
                   <div className="borderFill"></div>
                   <div className="text">
                     <Col md={{ span: 6, offset: 3 }}>
                       <h2 style={{ color: "#0C0704" }}>
-                      You want to have an overview of all your fields?
+                        You want to have an overview of all your fields?
                       </h2>
                       <p style={{ color: "#0C0704" }}>
-                      Create an overview of all your fields and always see the complete working history.
+                        Create an overview of all your fields and always see the
+                        complete working history.
                       </p>
                     </Col>
                   </div>
@@ -105,10 +135,13 @@ export default class Home extends Component {
             <Carousel.Item interval={10000} className="containerCarousel">
               <Carousel.Caption>
                 <Row>
-                <Col md={{ span: 3, offset: 4 }}>
-                  <div className="secondItemImg" alt="compareContractor"></div>
-                  <br />
-                </Col>
+                  <Col md={{ span: 3, offset: 4 }}>
+                    <div
+                      className="secondItemImg"
+                      alt="compareContractor"
+                    ></div>
+                    <br />
+                  </Col>
                 </Row>
                 <Row className="overlay">
                   <div className="borderFill"></div>
@@ -126,12 +159,53 @@ export default class Home extends Component {
                 </Row>
               </Carousel.Caption>
             </Carousel.Item>
-
           </Carousel>
         </Container>
-
-        <div>Manifesto : What is agroform. Farmers, join us</div>
-        <div>Showcase for contractors. Contractors, join us</div>
+            
+        <Container className="m-3">
+          <h2>Contractors nearby:</h2>
+          <CardColumns className="m-5">
+            {this.state.listContractors.map((contractors) => {
+              return (
+                <Card style={{ width: "18rem" }}>
+                 
+                  <React.Fragment>
+                     <img src={contractors.userImg} alt="image" />
+                 </React.Fragment>
+                  <Card.Body style={{backgroundColor: "#663925", color: "#fff"}}>
+                    <Card.Title style={{textAlign:"center" }}><h3>{contractors.username}</h3></Card.Title>
+                  </Card.Body>
+                  <ListGroupItem>
+                    <p>Location:</p>
+                    <ul>
+                      <li>{contractors.street}</li>
+                      <li>{contractors.city}</li>
+                      <li>{contractors.country}</li>
+                    </ul>
+                  </ListGroupItem>
+                  <ListGroup className="list-group-flush">
+                    <ListGroupItem>
+                      <p>Services:</p>
+                      {contractors.services.map((conServices) => {
+                        return (
+                          <p>
+                            {conServices.icon} <a></a> {conServices.service}
+                          </p>
+                        );
+                      })}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <p>Vehicles:</p>
+                      {contractors.vehicules.map((conVehicules) => {
+                        return <p>{conVehicules.vehicule}</p>;
+                      })}
+                    </ListGroupItem>
+                  </ListGroup>
+                </Card>
+              );
+            })}
+          </CardColumns>
+        </Container>
       </>
     );
   }
