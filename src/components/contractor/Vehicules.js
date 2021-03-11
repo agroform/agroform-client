@@ -121,11 +121,12 @@ export default class Vehicules extends Component {
           <h2>Your Vehicules:</h2>
           {this.state.selectedVehicules.map((selectedVehicules) => {
             return (
+                
               <>
                   <Card style={{ width: "18rem" }}>
                     <Card.Img variant="top" src={selectedVehicules.image} />
                     <Card.Body>
-                      <Card.Title>{selectedVehicules.vehicules}</Card.Title>
+                      <Card.Title>{selectedVehicules.vehicule}</Card.Title>
                       <Card.Text></Card.Text>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
