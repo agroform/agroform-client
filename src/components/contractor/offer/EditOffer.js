@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import { Form } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+
 export default class EditOffer extends Component {
   state = {
     date: this.props.offer.date.slice(0, 10),
@@ -70,50 +73,46 @@ export default class EditOffer extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleFormSubmit}>
-        <label>Date:</label>
-        <input type="date" name="date" value={this.state.date} onChange={this.handleChange} />
+      <Form onSubmit={this.handleFormSubmit}>
+        <strong>Date</strong>
+        <Form.Control type="date" name="date" value={this.state.date} onChange={this.handleChange} />
 
-        <label>Vehicule:</label>
-        <select name="vehicule" value={this.state.vehicule} onChange={this.handleChange}>
+        <strong>Vehicule</strong>
+        <Form.Control as="select" name="vehicule" value={this.state.vehicule} onChange={this.handleChange}>
           {this.state.vehicules.map(vehicule => <option key={vehicule._id} value={vehicule._id}>{vehicule.vehicule}</option>)}
-        </select>
+        </Form.Control>
 
-        <label>Measure by Hectare:</label>
-        <input type="radio" id="measureHaTrue"
-          name="measureHa" value={true}
+        <strong>Measure by Hectare</strong>
+        <Form.Check type="radio" id="measureHaTrue"
+          name="measureHa" value={true} label="Yes"
           checked={this.state.measureHa}
           onChange={this.handleChange} />
-        <label htmlFor="measureHaTrue">Yes</label>
-        <input type="radio" id="measureHaFalse"
-          name="measureHa" value={false}
+        <Form.Check type="radio" id="measureHaFalse"
+          name="measureHa" value={false} label="No"
           checked={!this.state.measureHa}
           onChange={this.handleChange} />
-        <label htmlFor="measureHaFalse">No</label>
 
-        <label>Price per Hectare:</label>
-        <input type="number" name="pricePerHa" value={this.state.pricePerHa} onChange={this.handleChange}/>
+        <strong>Price per Hectare</strong>
+        <Form.Control type="number" name="pricePerHa" value={this.state.pricePerHa} onChange={this.handleChange}/>
 
-        <label>Measure by Hour:</label>
-        <input type="radio" id="measureHourTrue"
-          name="measureHour" value={true}
+        <strong>Measure by Hour</strong>
+        <Form.Check type="radio" id="measureHourTrue"
+          name="measureHour" value={true} label="Yes"
           checked={this.state.measureHour}
-          onChange={this.handleChange} />
-        <label htmlFor="measureHourTrue">Yes</label>
-        <input type="radio" id="measureHourFalse"
-          name="measureHour" value={false}
+          onChange={this.handleChange}/>
+        <Form.Check type="radio" id="measureHourFalse"
+          name="measureHour" value={false} label="No"
           checked={!this.state.measureHour}
-          onChange={this.handleChange} />
-        <label htmlFor="measureHourFalse">No</label>
+          onChange={this.handleChange}/>
 
-        <label>Time expected (in hour):</label>
-        <input type="number" name="expecTime" value={this.state.expecTime} onChange={this.handleChange}/>
+        <strong>Time expected (in hour):</strong>
+        <Form.Control type="number" name="expecTime" value={this.state.expecTime} onChange={this.handleChange}/>
 
-        <label>Price per Hour:</label>
-        <input type="number" name="pricePerHour" value={this.state.pricePerHour} onChange={this.handleChange}/>
+        <strong>Price per Hour:</strong>
+        <Form.Control type="number" name="pricePerHour" value={this.state.pricePerHour} onChange={this.handleChange}/>
 
-        <input type="submit" value="Submit" />
-      </form>
+        <Button type="submit">Submit</Button>
+      </Form>
     )
   }
 }

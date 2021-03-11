@@ -39,7 +39,6 @@ class Profile extends Component {
         withCredentials: true,
       })
       .then((responseFromApi) => {
-        console.log("API resposne", responseFromApi)
         const { username, email, password, firstName, lastName, country, city, street, userImg, logo,} = responseFromApi.data;
         this.setState({
             username: username,

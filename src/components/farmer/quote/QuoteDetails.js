@@ -104,7 +104,7 @@ export default class QuoteDetails extends Component {
             <strong>Field</strong>
             <p>{field.fieldName}</p>
             <strong>Service required</strong>
-            <p>{service.icon} {service.mainService} {service.service}</p>
+            <p>{service?.icon} {service?.mainService} {service?.service}</p>
             <strong>Transport required</strong>
             <p>{transport ? "Yes" : "No"}</p>
             <strong>Description</strong>
