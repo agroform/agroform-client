@@ -8,7 +8,7 @@ import AllQuotes from '../contractor/quote/Quotes';
 import QuoteDetails from '../farmer/quote/QuoteDetails';
 import Offers from '../contractor/offer/Offers';
 import OfferDetails from '../contractor/offer/OfferDetails';
-import VehiculeDetails from '../contractor/VehiculeDetails';
+import Vehicules from '../contractor/Vehicules';
 import Services from '../contractor/Services';
 import Fields from '../farmer/field/Fields';
 import Profile from './Profile'
@@ -16,8 +16,7 @@ import Profile from './Profile'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Image from 'react-bootstrap/Image';
-import Button from 'react-bootstrap/Button';
+
 
 export default class Dashboard extends Component {
   state = {
@@ -41,15 +40,13 @@ export default class Dashboard extends Component {
     }
 
     if (this.props.loggedInUser.__t === "Contractor") {
-      const [offers, vehicules] = await Promise.all([
+      const [offers] = await Promise.all([
         axios.get(`${process.env.REACT_APP_API_URL}/offers`, {withCredentials: true}),
-        axios.get(`${process.env.REACT_APP_API_URL}/vehicules`, {withCredentials: true})
       ]);
 
       this.setState({
         lists: {
           offers: offers.data.map(offer => offer._id),
-          vehicules: vehicules.data,
         }
       });
     }
@@ -118,8 +115,12 @@ export default class Dashboard extends Component {
                 />
               }}
             />
-            <Route exact path='/dashboard/vehicules/:id' component={VehiculeDetails}/>
-            <Route exact path='/dashboard/vehicules'>All my vehicules</Route>
+            <Route exact path='/dashboard/vehicules' 
+              render = {(props) => {
+                return <Vehicules {...props} 
+                user={this.props.loggedInUser}/>
+              }}
+                />
             <Route exact path='/dashboard/services' 
               render = {(props) => {
                 return <Services {...props} 
