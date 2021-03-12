@@ -50,8 +50,8 @@ export default class Home extends Component {
   render() {
     return (
       <>
-        <Navbar bg="dark" to="/">
-          <Navbar.Brand href="#home" className="navbar-brand">
+        <Navbar bg="dark">
+          <Navbar.Brand href="/" className="navbar-brand">
             <div
               className="logoAgroform d-inline-block align-top"
               alt="agroform"
@@ -85,10 +85,11 @@ export default class Home extends Component {
         </Navbar>
         <Container fluid className="pictureMain">
           <Carousel>
+
             <Carousel.Item interval={10000} className="containerCarousel">
               <Carousel.Caption>
                 <Row>
-                  <Col md={{ span: 3, offset: 4 }}>
+                <Col md={{ span: 8, offset: 2 }}>
                     <div className="firstItemImg" alt="compareContractor"></div>
                     <br />
                   </Col>
@@ -97,7 +98,7 @@ export default class Home extends Component {
                   <div className="borderFill"></div>
 
                   <Col className="text" md={{ span: 6, offset: 3 }}>
-                    <h2 style={{ color: "#0C0704", paddingTop: "10%" }}>
+                    <h2 style={{ color: "#0C0704", paddingTop: "15px" }}>
                       WELCOME TO AGROFORM
                     </h2>
                     <p style={{ color: "#0C0704" }}>
@@ -117,9 +118,8 @@ export default class Home extends Component {
                 </Row>
                 <Row className="overlay">
                   <div className="borderFill"></div>
-                  <div className="text">
-                    <Col md={{ span: 6, offset: 3 }}>
-                      <h2 style={{ color: "#0C0704" }}>
+                    <Col className="text" md={{ span: 6, offset: 3 }}>
+                      <h2 style={{ color: "#0C0704", paddingTop: "15px" }}>
                         You want to have an overview of all your fields?
                       </h2>
                       <p style={{ color: "#0C0704" }}>
@@ -127,7 +127,6 @@ export default class Home extends Component {
                         complete working history.
                       </p>
                     </Col>
-                  </div>
                 </Row>
               </Carousel.Caption>
             </Carousel.Item>
@@ -145,9 +144,8 @@ export default class Home extends Component {
                 </Row>
                 <Row className="overlay">
                   <div className="borderFill"></div>
-                  <div className="text">
-                    <Col md={{ span: 6, offset: 3 }}>
-                      <h2 style={{ color: "#0C0704" }}>
+                    <Col className="text" md={{ span: 6, offset: 3 }}>
+                      <h2 style={{ color: "#0C0704", paddingTop: "15px" }}>
                         Are you looking for the right contracting company?
                       </h2>
                       <p style={{ color: "#0C0704" }}>
@@ -155,22 +153,21 @@ export default class Home extends Component {
                         quickly and easily with AGROFORM.
                       </p>
                     </Col>
-                  </div>
                 </Row>
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
         </Container>
             
-        <Container className="m-3">
-          <h2>Contractors nearby:</h2>
-          <CardColumns className="m-5">
+        <Container>
+          <h2 className="m-5">Contractors nearby:</h2>
+          <CardColumns>
             {this.state.listContractors.map((contractors) => {
               return (
                 <Card style={{ width: "18rem" }}>
                  
                   <React.Fragment>
-                     <img src={contractors.userImg} alt="image" />
+                     <img alt="contractorImg" src={contractors.userImg} />
                  </React.Fragment>
                   <Card.Body style={{backgroundColor: "#663925", color: "#fff"}}>
                     <Card.Title style={{textAlign:"center" }}><h3>{contractors.username}</h3></Card.Title>
@@ -189,7 +186,7 @@ export default class Home extends Component {
                       {contractors.services.map((conServices) => {
                         return (
                           <p>
-                            {conServices.icon} <a></a> {conServices.service}
+                            {conServices.icon} {conServices.service}
                           </p>
                         );
                       })}
