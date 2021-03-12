@@ -148,18 +148,25 @@ export default class QuoteDetails extends Component {
               this.state.quoteDetails.offers.filter(offer => (offer.offerOwner._id === this.props.user._id))
               .map(offer => {
                 return <div key={offer._id}>
+                  <strong>Date</strong>
                   <p>{offer.date.slice(0, 10)}</p>
                   {offer.measureHa && (
-                    <p>Price per hectare: {offer.pricePerHa}</p>
+                    <>
+                      <strong>Price per hectare</strong>
+                      <p>{offer.pricePerHa}</p>
+                    </>
                   )}
                   {offer.measureHour && (
                     <>
-                      <strong>Total price calculated by time:</strong>
+                      <strong>Total price calculated by time</strong>
                       <p>{offer.expecTime * offer.pricePerHour}</p>
                     </>
                   )}
+                  <strong>Vehicule</strong>
                   <p>{offer.vehicule.vehicule}</p>
-                  <p>Proposed by: {offer.offerOwner.username}</p>
+                  <strong>Proposed by</strong>
+                  <p>{offer.offerOwner.username}</p>
+                  <strong>Status</strong>
                   <p>{offer.status}</p>
                 </div>
               })
