@@ -167,7 +167,7 @@ export default class Home extends Component {
                 <Card style={{ width: "18rem" }}>
                  
                   <React.Fragment>
-                     <img alt="contractorImg" src={contractors.userImg} alt="image" />
+                     <img alt="contractorImg" src={contractors.userImg} />
                  </React.Fragment>
                   <Card.Body style={{backgroundColor: "#663925", color: "#fff"}}>
                     <Card.Title style={{textAlign:"center" }}><h3>{contractors.username}</h3></Card.Title>
@@ -186,7 +186,7 @@ export default class Home extends Component {
                       {contractors.services.map((conServices) => {
                         return (
                           <p>
-                            {conServices.icon} <a></a> {conServices.service}
+                            {conServices.icon} {conServices.service}
                           </p>
                         );
                       })}
