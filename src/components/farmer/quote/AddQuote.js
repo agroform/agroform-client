@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 export default class AddQuote extends Component {
   state = {
     service: undefined,
@@ -10,18 +16,36 @@ export default class AddQuote extends Component {
     destination: "",
     description: "",
     fields:[],
-    services: ["🚜 plugs", "🚜 loosen", "🌱 sow corn", "🌱 sow cereals", "🌿 protect grassland"]
+    services: []
   }
 
-  componentDidMount() {
-    axios.get(`${process.env.REACT_APP_API_URL}/fields`,
-      {withCredentials: true})
-      .then(response => {
-        this.setState({
-          fields: response.data
-        })
+  // componentDidMount() {
+  //   axios.get(`${process.env.REACT_APP_API_URL}/fields`,
+  //     {withCredentials: true})
+  //     .then(response => {
+  //       this.setState({
+  //         fields: response.data
+  //       })
+  //     })
+  //     .catch(err => console.log(err))
+  // }
+
+  componentDidMount = async() => {
+    try {
+      const [fields, services] = await Promise.all([
+        axios.get(`${process.env.REACT_APP_API_URL}/fields`,
+          {withCredentials: true}),
+        axios.get(`${process.env.REACT_APP_API_URL}/servicelist`,
+        {withCredentials: true})
+      ]);
+
+      this.setState({
+        fields: fields.data,
+        services: services.data,
       })
-      .catch(err => console.log(err))
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   handleFormSubmit = (event) => {
@@ -47,42 +71,44 @@ export default class AddQuote extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleFormSubmit}>
-          <label>Field:</label>
-          <select name="field" value={this.state.field} onChange={this.handleChange}>
-            {this.state.fields.map(field => <option key={field._id} value={field._id}>{field.fieldName}</option>)}
-          </select>
+      <Container>
+        <Row>
+          <Col>
+            <Form onSubmit={this.handleFormSubmit}>
+              <strong>Field</strong>
+              <Form.Control as="select" name="field" value={this.state.field} onChange={this.handleChange}>
+                {this.state.fields.map(field => <option key={field._id} value={field._id}>{field.fieldName}</option>)}
+              </Form.Control>
 
-          {/* <label>Service required:</label>
-          <select name="service" value={this.state.service} onChange={this.handleChange}>
-            {this.state.services.map(service => <option key={service} value={service}>{service}</option>)}
-          </select> */}
+              <strong>Service required</strong>
+              <Form.Control as="select" name="service" value={this.state.service} onChange={this.handleChange}>
+                {this.state.services.map(service => <option key={service._id} value={service}>{service.icon} {service.service}</option>)}
+              </Form.Control>
 
-          <label>Transport required:</label>
-          <input type="radio" id="transportTrue"
-            name="transport" value={true}
-            checked={this.state.transport}
-            onChange={this.handleChange} />
-          <label htmlFor="transportTrue">Yes</label>
-          <input type="radio" id="transportFalse"
-            name="transport" value={false}
-            checked={!this.state.transport}
-            onChange={this.handleChange} />
-          <label htmlFor="transportFalse">No</label>
+              <strong>Transport required</strong>
+              <Form.Check type="radio" id="transportTrue"
+                name="transport" value={true} label="Yes"
+                checked={this.state.transport}
+                onChange={this.handleChange} />
+              <Form.Check type="radio" id="transportFalse"
+                name="transport" value={false} label="No"
+                checked={!this.state.transport}
+                onChange={this.handleChange} />
 
-          <label>Description:</label>
-          <textarea name="description" value={this.state.description} onChange={this.handleChange}/>
+              <strong>Description</strong>
+              <Form.Control name="description" value={this.state.description} onChange={this.handleChange}/>
 
-          <label>Destination:</label>
-          <input type="text" name="destination" value={this.state.destination} onChange={this.handleChange} />
+              <strong>Destination</strong>
+              <Form.Control type="text" name="destination" value={this.state.destination} onChange={this.handleChange} />
 
-          <label>Date:</label>
-          <input type="date" name="date" value={this.state.date} onChange={this.handleChange} />
+              <strong>Date</strong>
+              <Form.Control type="date" name="date" value={this.state.date} onChange={this.handleChange} />
 
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
+              <Button type="submit">Submit</Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }
