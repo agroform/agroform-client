@@ -83,6 +83,7 @@ export default class Home extends Component {
             )}
           </Nav>
         </Navbar>
+
         <Container fluid className="pictureMain">
           <Carousel>
 
@@ -203,6 +204,7 @@ export default class Home extends Component {
             })}
           </CardColumns>
         </Container>
+        <footer style={{paddingBottom: "0px"}} >agroform &#169; 2021</footer>
       </>
     );
   }

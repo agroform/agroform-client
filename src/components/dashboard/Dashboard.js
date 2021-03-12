@@ -72,7 +72,7 @@ export default class Dashboard extends Component {
       <div>
         <Container fluid>
         <Row>
-        <Col sm={3}>
+        <Col xs={3} id="sidebar-wrapper">
         <Navbar
           user={this.props.loggedInUser}
           tabSelectHandler={this.handleTabSelect}
@@ -81,7 +81,7 @@ export default class Dashboard extends Component {
           onLogout={this.props.onLogout}
         />
         </Col>
-        <Col sm={9}>
+        <Col  xs={9} id="page-content-wrapper">
           <Switch>
             <Route exact path='/dashboard' render={() => <DashboardIndex user={this.props.loggedInUser} />}/>
             <Route exact path='/dashboard/profile' component={Profile} />
