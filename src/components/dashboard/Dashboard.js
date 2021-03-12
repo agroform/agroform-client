@@ -12,6 +12,7 @@ import Vehicules from '../contractor/Vehicules';
 import Services from '../contractor/Services';
 import Fields from '../farmer/field/Fields';
 import Profile from './Profile'
+import DashboardIndex from './DashboardIndex';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -82,7 +83,7 @@ export default class Dashboard extends Component {
         </Col>
         <Col sm={9}>
           <Switch>
-            <Route exact path='/dashboard'>dashboard index view</Route>
+            <Route exact path='/dashboard' render={() => <DashboardIndex user={this.props.loggedInUser} />}/>
             <Route exact path='/dashboard/profile' component={Profile} />
             <Route exact path='/dashboard/fields/:id'
               render={(props) => {

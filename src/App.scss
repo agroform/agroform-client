@@ -208,11 +208,17 @@ strong {
 
 .radio-toolbar input[type="radio"]:checked+label {
   border: 3px solid#489B34;
-  
+
   filter: brightness(1.2);
 }
 
 /* Extras */
+.current-weather-des {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
 
 
 
