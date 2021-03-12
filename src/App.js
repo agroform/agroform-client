@@ -54,7 +54,6 @@ export default class App extends Component {
           <AuthRoute user={this.state.loggedInUser} path="/register" render={() => <Register onLogin={this.handleLogin} />} />
           <AuthRoute user={this.state.loggedInUser} path="/login" render={() => <Login onLogin={this.handleLogin} />} />
         </Switch>
-        <footer>agroform &#169; 2021</footer>
       </div>
     );
   }

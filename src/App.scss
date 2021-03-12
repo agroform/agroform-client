@@ -69,6 +69,8 @@ strong {
   height: 120px;
 }
 
+// Carousel with fixed background image
+
 .pictureMain {
   background-image: url(./image/img/image_corn.jpg);
   background-repeat: no-repeat;
@@ -164,6 +166,8 @@ strong {
   height: 100px;
 }
 
+//Clickable pictures - register
+
 .radio-toolbar input[type="radio"] {
   opacity: 0;
   position: fixed;
@@ -211,6 +215,48 @@ strong {
 
   filter: brightness(1.2);
 }
+
+// Navbar stick to left
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  min-height: 100vh !important;
+  left: 0;
+  z-index: 100;
+  padding: 10px 10px 0 10px;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebarLinks{
+  font-size: 18px;
+  padding: 20px 0;
+  color: #fff !Important;
+}
+
+
+#sidebar-wrapper{
+  min-height: 100vh !important;
+  width: 100vw;
+  margin-left: -1rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#page-content-wrapper {
+  min-width: 0;
+  width: 100%;
+}
+
+// Icons netx to text
+
 
 /* Extras */
 .current-weather-des {
