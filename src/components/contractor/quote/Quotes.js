@@ -26,7 +26,6 @@ export default class Quotes extends Component {
   render() {
     return (
       <Container>
-        <Row>Search</Row>
         {this.state.isLoaded ?
         <Row>
         <CardDeck>

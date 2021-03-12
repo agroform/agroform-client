@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 class AddOffer extends Component {
   state = {
@@ -97,7 +97,7 @@ class AddOffer extends Component {
         <strong>Price per Hour</strong>
         <Form.Control type="number" name="pricePerHour" value={this.state.pricePerHour} onChange={this.handleChange}/>
 
-        <Button>Submit</Button>
+        <Button type="submit">Submit</Button>
       </Form>
     )
   }

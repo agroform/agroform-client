@@ -45,11 +45,6 @@ export default class Quotes extends Component {
     return (
       <Container>
         <Row>{this.state.responseMessage && <p>{this.state.responseMessage}</p>}</Row>
-        <Row>Search</Row>
-        <Row>
-          {this.state.showAddForm ?
-            <AddQuote onAddQuote={this.handleAddQuote} /> : <Button onClick={() => this.setState({showAddForm: true})}>Add a new quote</Button>}
-        </Row>
         {this.state.isLoaded ?
         <Row>
           <CardDeck>
@@ -73,6 +68,10 @@ export default class Quotes extends Component {
         </Row>
         :
         <Row>Loading...</Row>}
+        <Row>
+          {this.state.showAddForm ?
+            <AddQuote onAddQuote={this.handleAddQuote} /> : <Button onClick={() => this.setState({showAddForm: true})}>Add a new quote</Button>}
+        </Row>
       </Container>
     )
   }
