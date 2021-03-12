@@ -15,7 +15,7 @@ span {
   }
 }
 
-strong{
+strong {
   font-size: 12px;
 }
 
@@ -24,7 +24,7 @@ strong{
   color: $info;
 }
 
-.roundBtn{
+.roundBtn {
   border-radius: 2rem !Important;
   margin: 3px;
 }
@@ -33,71 +33,88 @@ strong{
   background-image: url(./image/icon/icon_CropProtection.svg);
   background-repeat: no-repeat;
 }
+
 .IconFertilistion {
   background-image: url(./image/icon/icon_Fertilisation.svg);
   background-repeat: no-repeat;
 }
+
 .IconHarvest {
   background-image: url(./image/icon/icon_Harvest.svg);
   background-repeat: no-repeat;
 }
+
 .IconSoilTillage {
   background-image: url(./image/icon/icon_SoilTillage.svg);
   background-repeat: no-repeat;
 }
-.IconSowing{
+
+.IconSowing {
   background-image: url(./image/icon/icon_Sowing.svg);
   background-repeat: no-repeat;
 }
-.logoAgroform{
+
+.logoAgroform {
   background-image: url(./image/logo/logo_agroform.svg) !Important;
   background-repeat: no-repeat;
   width: 40px;
   height: 40px;
 }
-.pictureMain{
+
+.logoAgroformMedium {
+  background-image: url(./image/logo/logo_agroform.svg) !Important;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  width: 120px;
+  height: 120px;
+}
+
+.pictureMain {
   background-image: url(./image/img/image_corn.jpg);
   background-repeat: no-repeat;
-  background-size: auto 100vh;
+  background-size: 100vw;
 }
-.containerCarousel{
-  margin: 25vh auto;
-  width: 20vh;
-  height: 50vh;
+
+.containerCarousel {
+  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
 }
-.containerCarousel h3{
+
+.containerCarousel h3 {
   font-size: 1.5rem;
   font-weight: $font-weight-bold;
 }
 
-.backgroundCarousel{
+.backgroundCarousel {
   background-color: #fff;
 }
 
-.firstItemImg{
+.firstItemImg {
   background-image: url(./image/logo/logo_agroform.svg) !Important;
   background-repeat: no-repeat;
-  margin: auto;
+  margin: 0 auto;
   width: 300px;
-  height: 300px;
+  height: 400px;
 }
 
-.secondItemImg{
+.secondItemImg {
   background-image: url(./image/logo/logo_compare.svg) !Important;
   background-repeat: no-repeat;
   margin: 0 auto;
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
 }
-.threeItemImg{
+
+.threeItemImg {
   background-image: url(./image/logo/logo_fields.svg) !Important;
   background-repeat: no-repeat;
   margin: 0 auto;
-  width: 400px;
-  height: 300px;
+  width: 500px;
+  height: 400px;
 }
 
-.overlay{
+.overlay {
   position: relative;
   margin-bottom: 10%;
 }
@@ -119,6 +136,83 @@ strong{
   position: absolute;
 }
 
+.loginImage {
+  background-image: url(./image/img/img_acker.jpg) !Important;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 600px;
+}
+
+.registerImage {
+  background-image: url(./image/img/img_harvest.jpg) !Important;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 800px;
+}
+
+.logoContractor {
+  background-image: url(./image/logo/logo_contrator.svg) !Important;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+}
+
+.logoFarmer {
+  background-image: url(./image/logo/logo_farmer.svg) !Important;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+}
+
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+.radio-toolbar1 label {
+  display: inline-block;
+  background-color: #fff;
+  background-image: url(./image/logo/logo_farmer.svg) !Important;
+  background-repeat: no-repeat;
+  background-size: 100px 100px;
+  background-position: center;
+  width: 150px;
+  height: 130px;
+  font-size: 16px;
+  border: 1px solid#bbb;
+  border-radius: 4px;
+  color: "#0C0704"
+}
+
+.radio-toolbar2 label {
+  display: inline-block;
+  background-color: #fff;
+  background-image: url(./image/logo/logo_contrator.svg) !Important;
+  background-repeat: no-repeat;
+  background-size: 100px 100px;
+  background-position: center;
+  width: 150px;
+  height: 130px;
+  font-size: 16px;
+  border: 1px solid#bbb;
+  border-radius: 4px;
+  color: "#0C0704"
+}
+
+.radio-toolbar label:hover {
+  filter: brightness(1.2);
+  border-color: #489B34;
+}
+
+
+.radio-toolbar input[type="radio"]:checked+label {
+  border: 3px solid#489B34;
+  
+  filter: brightness(1.2);
+}
+
+/* Extras */
 
 
 
