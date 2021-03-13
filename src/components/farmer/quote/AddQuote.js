@@ -19,17 +19,6 @@ export default class AddQuote extends Component {
     services: []
   }
 
-  // componentDidMount() {
-  //   axios.get(`${process.env.REACT_APP_API_URL}/fields`,
-  //     {withCredentials: true})
-  //     .then(response => {
-  //       this.setState({
-  //         fields: response.data
-  //       })
-  //     })
-  //     .catch(err => console.log(err))
-  // }
-
   componentDidMount = async() => {
     try {
       const [fields, services] = await Promise.all([
@@ -82,7 +71,7 @@ export default class AddQuote extends Component {
 
               <strong>Service required</strong>
               <Form.Control as="select" name="service" value={this.state.service} onChange={this.handleChange}>
-                {this.state.services.map(service => <option key={service._id} value={service}>{service.icon} {service.service}</option>)}
+                {this.state.services.map(service => <option key={service._id} value={service._id}>{service.icon} {service.service}</option>)}
               </Form.Control>
 
               <strong>Transport required</strong>
