@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
 
 export default class AddQuote extends Component {
   state = {
@@ -61,6 +62,17 @@ export default class AddQuote extends Component {
   render() {
     return (
       <Container>
+      <Card>
+          <Card.Header>
+            <span
+              to="/"
+              className="IconQuotes d-inline-block align-top"
+              alt="agroform"
+              style={{ width: "40px", height: "40px", paddingLeft: "50px" }}
+            ></span>
+            <>&nbsp;</>Add new Quote
+          </Card.Header>
+          <Card.Body>
         <Row>
           <Col>
             <Form onSubmit={this.handleFormSubmit}>
@@ -99,6 +111,8 @@ export default class AddQuote extends Component {
             </Form>
           </Col>
         </Row>
+        </Card.Body>
+        </Card>
       </Container>
     )
   }
