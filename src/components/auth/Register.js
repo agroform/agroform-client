@@ -219,7 +219,7 @@ export default class Register extends Component {
                             variant="outline-light"
                             block
                           >
-                            Create Account
+                            Go to Login
                           </Button>
                         </div>
                       </div>
