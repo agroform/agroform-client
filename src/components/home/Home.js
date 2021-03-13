@@ -204,7 +204,7 @@ export default class Home extends Component {
             })}
           </CardColumns>
         </Container>
-        <footer style={{paddingBottom: "0px"}} >agroform &#169; 2021</footer>
+        <footer style={{paddingBottom: "0px", backgroundColor: "black", textAlign: "center", margin: "auto", color: '#489B34'}}>agroform &#169; 2021</footer>
       </>
     );
   }

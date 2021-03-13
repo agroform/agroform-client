@@ -47,7 +47,7 @@ export default class Quotes extends Component {
         <Row>{this.state.responseMessage && <p>{this.state.responseMessage}</p>}</Row>
         {this.state.isLoaded ?
         <Row>
-          <CardDeck>
+          <CardDeck className="m-5">
             {this.state.quotes.map(quote => {
               return (
                 <Card key={quote._id} border="primary" style={{ width: '18rem', borderRadius: '4px' }}>

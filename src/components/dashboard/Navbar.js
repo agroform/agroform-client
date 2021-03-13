@@ -34,28 +34,33 @@ export default class Navbar extends Component {
         >
           <div className="sidebar-sticky" style={{ position: "fixed", top: "20px" }}>
           <Nav.Item>
-            <span
-              to="/"
+            <a
+              href="/dashboard"
               className="logoAgroform d-inline-block align-top"
               alt="agroform"
               style={{ paddingLeft: "50px" }}
             >
-              <h2>AGROFORM</h2>
-            </span>
+              <h2 style={{color: "white"}}>AGROFORM</h2>
+            </a>
           </Nav.Item>
           <Nav.Item className="sidebarLinks">
+          
+         
             <Link
+              className="IconContractor"
+              style={{ paddingLeft: "50px",width:"100px", height:"100px", color: "white"}}
               to="/dashboard/profile"
               onClick={() => this.props.tabSelectHandler("profile")}
-            >
-              {this.props.user.username}
+            > {this.props.user.username}
             </Link>
+
           </Nav.Item>
           {tabs.map((tab) => {
             return (
               <Link key={tab}>
                 <Link
                   className="sidebarLinks"
+                  style={{ paddingLeft: "50px",width:"100px", height:"100px"}}
                   to={`/dashboard/${tab}`}
                   onClick={() => this.props.tabSelectHandler(tab)}
                 >
@@ -65,9 +70,19 @@ export default class Navbar extends Component {
                   {this.props.selectedTab === tab &&
                     this.props.subTabs[tab]?.map((ele, i) => {
                       return (
-                        <Link key={tab + i} to={`/dashboard/${tab}/${ele}`}>
+                        <p>
+                        {(tab) === "fields" ? 
+                        <Link className="IconSoilTillage" style={{paddingLeft: "50px", color: "#fff"}} key={tab + i} to={`/dashboard/${tab}/${ele}`}>
                           {tab} {i + 1}
-                        </Link>
+                        </Link> :
+                        (tab) === "quotes" ? 
+                        <Link className="IconQuotes" style={{paddingLeft: "50px", color: "#fff"}} key={tab + i} to={`/dashboard/${tab}/${ele}`}>
+                          {tab} {i + 1} 
+                        </Link> :
+                           <Link className="IconOffers" style={{paddingLeft: "50px", color: "#fff"}} key={tab + i} to={`/dashboard/${tab}/${ele}`}>
+                          {tab} {i + 1} 
+                        </Link>  }
+                        </p>
                       );
                     })}
                 </ul>
