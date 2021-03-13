@@ -64,6 +64,7 @@ class AddOffer extends Component {
 
         <strong>Vehicule</strong>
         <Form.Control as="select" name="vehicule" value={this.state.vehicule} onChange={this.handleChange}>
+          <option value="">Required</option>
           {this.state.vehicules.map(vehicule => <option key={vehicule._id} value={vehicule._id}>{vehicule.vehicule}</option>)}
         </Form.Control>
 

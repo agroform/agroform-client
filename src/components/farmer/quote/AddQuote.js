@@ -66,11 +66,13 @@ export default class AddQuote extends Component {
             <Form onSubmit={this.handleFormSubmit}>
               <strong>Field</strong>
               <Form.Control as="select" name="field" value={this.state.field} onChange={this.handleChange}>
+                <option value="">Required</option>
                 {this.state.fields.map(field => <option key={field._id} value={field._id}>{field.fieldName}</option>)}
               </Form.Control>
 
               <strong>Service required</strong>
               <Form.Control as="select" name="service" value={this.state.service} onChange={this.handleChange}>
+                <option value="">Required</option>
                 {this.state.services.map(service => <option key={service._id} value={service._id}>{service.icon} {service.service}</option>)}
               </Form.Control>
 
