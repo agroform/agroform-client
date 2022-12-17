@@ -51,7 +51,7 @@ export default class Vehicules extends Component {
   handleVehiculesSelect = (event) => {
     event.preventDefault();
     const id = event.target.value;
-    console.log(id);
+
     axios
       .post(
         `${process.env.REACT_APP_API_URL}/vehicules`,
@@ -104,15 +104,16 @@ export default class Vehicules extends Component {
   render() {
     return (
       <div>
-        {this.state.defaultVehicules.map((allVehicules) => {
+        {this.state.defaultVehicules.map((vehicule) => {
           return (
             <Button
+              key={vehicule.id}
               size="lg"
               name="services"
-              value={allVehicules._id}
+              value={vehicule._id}
               onClick={this.handleVehiculesSelect}
             >
-              {allVehicules.type} {allVehicules.brand}
+              {vehicule.type} {vehicule.brand}
             </Button>
           );
         })}
@@ -121,7 +122,7 @@ export default class Vehicules extends Component {
           <h2>Your Vehicules:</h2>
           {this.state.selectedVehicules.map((selectedVehicules) => {
             return (
-                
+
               <>
                   <Card style={{ width: "18rem" }}>
                     <Card.Img variant="top" src={selectedVehicules.image} />

@@ -48,6 +48,8 @@ export default class Home extends Component {
   }
 
   render() {
+    const currentYear = (new Date()).getFullYear();
+
     return (
       <>
         <Navbar bg="dark">
@@ -86,7 +88,6 @@ export default class Home extends Component {
 
         <Container fluid className="pictureMain">
           <Carousel>
-
             <Carousel.Item interval={10000} className="containerCarousel">
               <Carousel.Caption>
                 <Row>
@@ -159,43 +160,42 @@ export default class Home extends Component {
             </Carousel.Item>
           </Carousel>
         </Container>
-            
+
         <Container>
           <h2 className="m-5">Contractors nearby:</h2>
           <CardColumns>
-            {this.state.listContractors.map((contractors) => {
+            {this.state.listContractors.map((contractor) => {
               return (
-                <Card style={{ width: "18rem" }}>
-                 
+                <Card key={contractor.id} style={{ width: "18rem" }}>
                   <React.Fragment>
-                     <img alt="contractorImg" src={contractors.userImg} />
-                 </React.Fragment>
+                     <img alt="contractorImg" src={contractor.userImg} />
+                  </React.Fragment>
                   <Card.Body style={{backgroundColor: "#663925", color: "#fff"}}>
-                    <Card.Title style={{textAlign:"center" }}><h3>{contractors.username}</h3></Card.Title>
+                    <Card.Title style={{textAlign:"center" }}><h3>{contractor.username}</h3></Card.Title>
                   </Card.Body>
                   <ListGroupItem>
                     <p>Location:</p>
                     <ul>
-                      <li>{contractors.street}</li>
-                      <li>{contractors.city}</li>
-                      <li>{contractors.country}</li>
+                      <li>{contractor.street}</li>
+                      <li>{contractor.city}</li>
+                      <li>{contractor.country}</li>
                     </ul>
                   </ListGroupItem>
                   <ListGroup className="list-group-flush">
                     <ListGroupItem>
                       <p>Services:</p>
-                      {contractors.services.map((conServices) => {
+                      {contractor.services.map((service) => {
                         return (
-                          <p>
-                            {conServices.icon} {conServices.service}
+                          <p key={service.service}>
+                            {service.icon} {service.service}
                           </p>
                         );
                       })}
                     </ListGroupItem>
                     <ListGroupItem>
                       <p>Vehicles:</p>
-                      {contractors.vehicules.map((conVehicules) => {
-                        return <p>{conVehicules.vehicule}</p>;
+                      {contractor.vehicules.map((vehicule) => {
+                        return <p key={vehicule.vehicule}>{vehicule.vehicule}</p>;
                       })}
                     </ListGroupItem>
                   </ListGroup>
@@ -204,7 +204,7 @@ export default class Home extends Component {
             })}
           </CardColumns>
         </Container>
-        <footer style={{paddingBottom: "0px", backgroundColor: "black", textAlign: "center", margin: "auto", color: '#489B34'}}>agroform &#169; 2021</footer>
+        <footer style={{paddingBottom: "0px", backgroundColor: "black", textAlign: "center", margin: "auto", color: '#489B34'}}>agroform &#169; {currentYear}</footer>
       </>
     );
   }

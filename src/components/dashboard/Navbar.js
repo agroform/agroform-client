@@ -26,6 +26,8 @@ export default class Navbar extends Component {
         break;
     }
 
+    const currentYear = (new Date()).getFullYear();
+
     return (
       <>
         <Nav
@@ -44,8 +46,8 @@ export default class Navbar extends Component {
             </a>
           </Nav.Item>
           <Nav.Item className="sidebarLinks">
-          
-         
+
+
             <Link
               className="IconContractor"
               style={{ paddingLeft: "50px",width:"100px", height:"100px", color: "white"}}
@@ -57,7 +59,7 @@ export default class Navbar extends Component {
           </Nav.Item>
           {tabs.map((tab) => {
             return (
-              <Link key={tab}>
+              <div key={tab}>
                 <Link
                   className="sidebarLinks"
                   style={{ paddingLeft: "50px",width:"100px", height:"100px"}}
@@ -70,23 +72,23 @@ export default class Navbar extends Component {
                   {this.props.selectedTab === tab &&
                     this.props.subTabs[tab]?.map((ele, i) => {
                       return (
-                        <p>
-                        {(tab) === "fields" ? 
+                        <p key={tab + i}>
+                        {(tab) === "fields" ?
                         <Link className="IconSoilTillage" style={{paddingLeft: "50px", color: "#fff"}} key={tab + i} to={`/dashboard/${tab}/${ele}`}>
                           {tab} {i + 1}
                         </Link> :
-                        (tab) === "quotes" ? 
+                        (tab) === "quotes" ?
                         <Link className="IconQuotes" style={{paddingLeft: "50px", color: "#fff"}} key={tab + i} to={`/dashboard/${tab}/${ele}`}>
-                          {tab} {i + 1} 
+                          {tab} {i + 1}
                         </Link> :
                            <Link className="IconOffers" style={{paddingLeft: "50px", color: "#fff"}} key={tab + i} to={`/dashboard/${tab}/${ele}`}>
-                          {tab} {i + 1} 
+                          {tab} {i + 1}
                         </Link>  }
                         </p>
                       );
                     })}
                 </ul>
-              </Link>
+              </div>
             );
           })}
           <Nav.Item>
@@ -96,7 +98,7 @@ export default class Navbar extends Component {
           </Nav.Item>
           <Nav.Item fixed="bottom"> </Nav.Item>
           <footer style={{ position: "fixed", bottom: "10px" }}>
-            <a href="/">agroform</a> &#169; 2021
+            <a href="/">agroform</a> &#169; {currentYear}
           </footer>
         </div>
         </Nav>

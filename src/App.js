@@ -23,7 +23,6 @@ export default class App extends Component {
         });
       })
       .catch(()=> {
-        console.log(`No user is loggedin`);
         this.setState({
           loggedInUser: null,
         });

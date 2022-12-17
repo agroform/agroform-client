@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import nextSevenDays from '../util';
+import { Link } from "react-router-dom";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -94,7 +95,11 @@ export default class DashboardIndex extends Component {
         </>
         :
         <Row>
-          <p>Loading...</p>
+          {this.props.user.city ?
+          <p>Loading weather information in {this.props.user.city}...</p>
+          :
+          <Link to="/dashboard/profile">Get started by completing your profile</Link>
+          }
         </Row>
         }
       </Container>

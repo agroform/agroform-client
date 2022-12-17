@@ -65,8 +65,8 @@ export default class Fields extends Component {
                       <th></th>
                     </tr>
                   </thead>
+                  <tbody>
                   {this.state.fields.map((field) => (
-                    <tbody>
                       <tr key={field._id}>
                         <td>
                           <span
@@ -88,8 +88,8 @@ export default class Fields extends Component {
                           </Link>
                         </td>
                       </tr>
-                    </tbody>
                   ))}
+                  </tbody>
                 </Table>
               ) : (
                 <p>Loading...</p>
